@@ -74,6 +74,24 @@ const WORKS = [
   },
 ];
 
+const COMPANIES = [
+  {
+    name: "Microsoft",
+    sub: "Since Feb 2025",
+    logo: "logos/microsoft_logo.webp",
+  },
+  {
+    name: "Myntra",
+    sub: "Jun 2021 - Feb 2025",
+    logo: "logos/myntra_logo.png",
+  },
+  {
+    name: "Sprinklr",
+    sub: "May - Jul 2020",
+    logo: "logos/sprinklr_logo.svg",
+  },
+];
+
 function Placeholder({ className = "" }: { className?: string }) {
   return (
     <div
@@ -165,13 +183,13 @@ export function Portfolio() {
                       experience
                     </span>
                   </div>
-                  {[
-                    { name: "Microsoft", sub: "Since Feb 2025" },
-                    { name: "Myntra", sub: "Jun 2021 - Feb 2025" },
-                    { name: "Sprinklr", sub: "May - Jul 2020" },
-                  ].map((c) => (
+                  {COMPANIES.map((c) => (
                     <div key={c.name} className="flex items-center gap-3">
-                      <Placeholder className="h-11 w-11 shrink-0 rounded-lg" />
+                      <img
+                        src={c.logo}
+                        alt={`${c.name} logo`}
+                        className="h-11 w-11 shrink-0 rounded-lg border border-neutral-200 bg-white object-contain p-1.5"
+                      />
                       <div className="min-w-0">
                         <div className="font-semibold leading-tight">{c.name}</div>
                         <div className="text-xs text-neutral-500 mt-0.5">
