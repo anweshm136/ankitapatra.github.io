@@ -153,51 +153,51 @@ const ABOUT_TILES = [
     src: "portfolio/about-sunflower-field.png",
     alt: "Ankita standing in a sunflower field",
     className:
-      "lg:left-[50.5rem] lg:top-[11.6rem] lg:h-[34rem] lg:w-[24rem]",
+      "lg:left-[40rem] lg:top-[14.2rem] lg:h-[25rem] lg:w-[20rem]",
   },
   {
     src: "portfolio/about-3d-desk.png",
     alt: "A 3D desk model",
     className:
-      "lg:left-[72rem] lg:top-[19.4rem] lg:h-[14.8rem] lg:w-[26rem]",
+      "lg:left-[61rem] lg:top-[17.2rem] lg:h-[12rem] lg:w-[18rem]",
   },
   {
     src: "portfolio/about-character-turnaround.png",
     alt: "Character design turnaround sheet",
     className:
-      "lg:left-[96rem] lg:top-[10.8rem] lg:h-[8.6rem] lg:w-[15rem]",
+      "lg:left-[80rem] lg:top-[13.5rem] lg:h-[6rem] lg:w-[7.5rem]",
   },
   {
     src: "portfolio/about-pop-art-cat.png",
     alt: "Colorful illustration",
     className:
-      "lg:left-[96rem] lg:top-[24.2rem] lg:h-[13.2rem] lg:w-[12.2rem]",
+      "lg:left-[80rem] lg:top-[20rem] lg:h-[9rem] lg:w-[7rem]",
   },
   {
     src: "portfolio/about-purple-painting.png",
     alt: "Purple digital portrait painting",
     className:
-      "lg:left-[70rem] lg:bottom-0 lg:h-[38.5rem] lg:w-[38.5rem]",
+      "lg:left-[61rem] lg:bottom-[-3rem] lg:h-[32rem] lg:w-[32rem]",
   },
   {
     src: "portfolio/about-mona-lisa-sketch.png",
     alt: "Mona Lisa pencil sketch",
-    className: "lg:-left-[16rem] lg:bottom-0 lg:h-[20rem] lg:w-[34rem]",
+    className: "lg:-left-[23rem] lg:bottom-[-5rem] lg:h-[20rem] lg:w-[30rem]",
   },
   {
     src: "portfolio/about-crochet-pink.png",
     alt: "Pink crochet work in progress",
-    className: "lg:left-[13rem] lg:bottom-0 lg:h-[17.5rem] lg:w-[25rem]",
+    className: "lg:left-[8rem] lg:bottom-[-4rem] lg:h-[15rem] lg:w-[15rem]",
   },
   {
     src: "portfolio/about-clay-sculpture.png",
     alt: "Clay figure in progress",
-    className: "lg:left-[32rem] lg:bottom-0 lg:h-[28rem] lg:w-[20rem]",
+    className: "lg:left-[24rem] lg:bottom-[-1rem] lg:h-[20rem] lg:w-[15rem]",
   },
   {
     src: "portfolio/about-kalamkari-pattern.png",
     alt: "Bright ornamental pattern artwork",
-    className: "lg:left-[52rem] lg:bottom-0 lg:h-[28rem] lg:w-[28rem]",
+    className: "lg:left-[40rem] lg:bottom-[-1rem] lg:h-[20rem] lg:w-[20rem]",
   },
 ];
 
