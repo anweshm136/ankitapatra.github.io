@@ -7,22 +7,30 @@ const EMAIL = "ankita.patra21@gmail.com";
 const RESUME_URL =
   "https://drive.google.com/drive/folders/1TfJdLpQWqvuq3Dpuh2iSPz7JgO3wfsAe";
 
+const LOGOS = {
+  iitg: "logos/iitg.png",
+  microsoft: "logos/microsoft.png",
+  myntra: "logos/myntra.png",
+  purview: "logos/purview.png",
+  sprinklr: "logos/sprinklr.png",
+} as const;
+
 const ANNOUNCEMENTS = [
   {
     href: "https://www.youtube.com/watch?v=2srbflqimJQ",
-    videoId: "2srbflqimJQ",
+    thumbnail: "portfolio/announcement-purview.png",
     title: "Microsoft Purview X Microsoft Foundry:",
     body: " AI-powered regulatory assessment template creation & compliance protection for Microsoft Foundry apps and agents.",
   },
   {
     href: "https://www.youtube.com/watch?v=XmcDFCrOXUg",
-    videoId: "XmcDFCrOXUg",
+    thumbnail: "portfolio/announcement-copilot.png",
     title: "Microsoft Copilot X Microsoft Purview:",
     body: " Out-of-box compliance for Copilot & option to expand guardrails using AI-powered regulatory assessment template.",
   },
   {
     href: "https://www.youtube.com/live/tEseNXws7-s?t=12850&si=63UYnj9Bk2b3geFk",
-    videoId: "tEseNXws7-s",
+    thumbnail: "portfolio/announcement-designmyx.png",
     title: "Myntra X Figma presents DesignMyx:",
     body: " Shop with Maya: Conversational AI for intent narrowing & personalised recommendation in fashion e-commerce user journey.",
   },
@@ -30,17 +38,16 @@ const ANNOUNCEMENTS = [
 
 const WORKS = [
   {
-    surface:
-      "bg-[radial-gradient(circle_at_78%_42%,rgba(142,165,255,0.58),transparent_31%),radial-gradient(circle_at_68%_26%,rgba(166,246,255,0.45),transparent_28%),linear-gradient(135deg,rgba(255,255,255,0.96),rgba(255,255,255,0.78))]",
+    background: "portfolio/work-purview-background.png",
     tag: "COMPLIANCE RISK MANAGEMENT, ENTERPRISE SAAS",
     tagClass: "text-blue-600",
     title:
       "AI-powered regulatory templates for custom & evolving compliance requirements",
     live: "MICROSOFT PURVIEW",
-    logo: "logos/microsoft_logo.webp",
+    logo: LOGOS.purview,
     visual: "portfolio/work-purview-template.png",
     visualClass:
-      "lg:right-6 lg:top-[5.5rem] lg:h-[58%] lg:w-auto lg:object-contain",
+      "lg:right-6 lg:top-[-3.5rem] lg:h-[200%] lg:w-auto lg:origin-top-right lg:scale-[0.75] lg:object-contain",
     stats: [
       { k: "~150-180% YoY growth", v: "in tenant subscription" },
       { k: "Timeline", v: "Apr - Jun 2025" },
@@ -49,17 +56,16 @@ const WORKS = [
     href: "https://www.figma.com/proto/pfkpRsScKCezRkytPPkSea/Microsoft-Purview---Compliance-Manager?node-id=1-4918&p=f&t=032qu2kdO3gitoPP-1&scaling=contain&content-scaling=fixed&page-id=0%3A1&starting-point-node-id=1%3A4918",
   },
   {
-    surface:
-      "bg-[radial-gradient(circle_at_83%_55%,rgba(165,119,221,0.5),transparent_35%),radial-gradient(circle_at_80%_33%,rgba(255,196,246,0.52),transparent_30%),linear-gradient(135deg,rgba(255,255,255,0.96),rgba(255,255,255,0.8))]",
+    background: "portfolio/work-care-flows-background.png",
     tag: "CRM - CUSTOMER CARE, ENTERPRISE SAAS",
     tagClass: "text-violet-600",
     title:
       "Contextual guided flows for customer care agents to grasp & resolve customer queries on call faster",
     live: "MYNTRA",
-    logo: "logos/myntra_logo.png",
+    logo: LOGOS.myntra,
     visual: "portfolio/work-care-flows.png",
     visualClass:
-      "lg:-right-4 lg:bottom-0 lg:h-[70%] lg:w-auto lg:object-contain",
+      "lg:-right-[9em] lg:bottom-[-6.5em] lg:h-[70%] lg:w-auto lg:origin-bottom-right lg:scale-[1.65] lg:object-contain",
     stats: [
       { k: "~30% reduction", v: "in average handling time" },
       { k: "Timeline", v: "Feb - Jun 2024" },
@@ -68,18 +74,17 @@ const WORKS = [
     href: "https://www.figma.com/proto/IWxoPnCV8V8uR6f4tIF5F5/SA?node-id=4006-26398&t=ESxHyWZvKR8DGDXf-1&scaling=contain&content-scaling=fixed&page-id=4006%3A26397&starting-point-node-id=4006%3A26398&fuid=1148614817063352196",
   },
   {
-    surface:
-      "bg-[radial-gradient(circle_at_82%_45%,rgba(255,85,149,0.58),transparent_38%),radial-gradient(circle_at_70%_68%,rgba(255,204,224,0.72),transparent_34%),linear-gradient(135deg,rgba(255,255,255,0.96),rgba(255,255,255,0.8))]",
+    background: "portfolio/work-maya-background.png",
     tag: "CONSUMER MOBILE APP, E-COMMERCE",
     tagClass: "text-rose-600",
     title:
       "0 -> MVP : Conversational AI for non-linear search to aid intent narrowing & personalised recommendation",
     live: "MYNTRA",
     liveLabel: "V2.0 LIVE @",
-    logo: "logos/myntra_logo.png",
+    logo: LOGOS.myntra,
     visual: "portfolio/work-maya.png",
     visualClass:
-      "lg:right-4 lg:top-[5.8rem] lg:h-[48%] lg:w-auto lg:object-contain",
+      "lg:right-[-9em] lg:top-[3.8rem] lg:h-[48%] lg:w-auto lg:origin-top-right lg:scale-[1.6] lg:object-contain",
     stats: [
       { k: "~2% contribution", v: "in overall bag building" },
       { k: "Timeline", v: "Jul - Sep 2023" },
@@ -92,7 +97,7 @@ const WORKS = [
 const NDA_PROJECTS = [
   {
     status: "WIP @",
-    logo: "logos/microsoft_logo.webp",
+    logo: LOGOS.purview,
     org: "MICROSOFT PURVIEW",
     title:
       "Continuous compliance evaluation and governance for AI Agents at scale",
@@ -100,7 +105,7 @@ const NDA_PROJECTS = [
   },
   {
     status: "WIP @",
-    logo: "logos/microsoft_logo.webp",
+    logo: LOGOS.purview,
     org: "MICROSOFT PURVIEW",
     title:
       "Agentic workflows for regulatory compliance action management",
@@ -108,7 +113,7 @@ const NDA_PROJECTS = [
   },
   {
     status: "CURRENTLY LIVE @",
-    logo: "logos/myntra_logo.png",
+    logo: LOGOS.myntra,
     org: "MYNTRA",
     title:
       "Framework for rapid iteration in e-commerce conversational AI search & recommendation",
@@ -119,7 +124,7 @@ const NDA_PROJECTS = [
   },
   {
     status: "CURRENTLY LIVE @",
-    logo: "logos/myntra_logo.png",
+    logo: LOGOS.myntra,
     org: "MYNTRA",
     title:
       "Seller-facing advertisement bidding platform, supporting campaign & ROI management",
@@ -134,17 +139,17 @@ const COMPANIES = [
   {
     name: "Microsoft",
     sub: "Since Feb 2025",
-    logo: "logos/microsoft_logo.webp",
+    logo: LOGOS.microsoft,
   },
   {
     name: "Myntra",
     sub: "Jun 2021 - Feb 2025",
-    logo: "logos/myntra_logo.png",
+    logo: LOGOS.myntra,
   },
   {
     name: "Sprinklr",
     sub: "May - Jul 2020",
-    logo: "logos/sprinklr_logo.svg",
+    logo: LOGOS.sprinklr,
   },
 ];
 
@@ -290,7 +295,12 @@ function WorkCard({ work }: { work: (typeof WORKS)[number] }) {
       rel="noreferrer"
       className="group relative block min-h-[31rem] overflow-hidden rounded-[1.45rem] border border-neutral-200/85 bg-white shadow-[0_10px_28px_rgba(20,20,20,0.04)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_24px_52px_rgba(20,20,20,0.08)]"
     >
-      <div className={`absolute inset-0 ${work.surface}`} />
+      <img
+        src={work.background}
+        alt=""
+        aria-hidden
+        className="absolute inset-0 h-full w-full object-cover"
+      />
       <div className="relative z-10 flex min-h-[31rem] flex-col justify-between p-7 sm:p-10 lg:p-12">
         <div className="relative z-20 max-w-3xl lg:max-w-[70%]">
           <p
@@ -298,7 +308,7 @@ function WorkCard({ work }: { work: (typeof WORKS)[number] }) {
           >
             {work.tag}
           </p>
-          <h3 className="portfolio-work-title mt-5 max-w-[47rem] font-display text-2xl leading-[1.22] tracking-tight text-neutral-900 sm:text-3xl lg:text-[1.9rem]">
+          <h3 className="portfolio-work-title mt-5 max-w-[47rem] text-2xl font-bold leading-[1.22] text-neutral-900 sm:text-3xl lg:text-[1.9rem]">
             {work.title}
           </h3>
           <div className="mt-6">
@@ -336,7 +346,7 @@ function NdaProjectCard({ project }: { project: (typeof NDA_PROJECTS)[number] })
           org={project.org}
           status={project.status}
         />
-        <h3 className="portfolio-nda-title mt-7 max-w-[32rem] text-xl font-bold leading-[1.38] tracking-tight text-neutral-900 sm:text-2xl">
+        <h3 className="portfolio-nda-title mt-7 max-w-[32rem] text-xl font-bold leading-[1.38] text-neutral-900 sm:text-2xl">
           {project.title}
         </h3>
       </div>
@@ -375,7 +385,7 @@ export function Portfolio() {
         }}
       >
         <div className="mx-auto flex w-full items-center justify-between gap-4 px-5 py-4 sm:px-[60px] sm:py-5">
-          <div className="portfolio-header-name min-w-0 truncate text-lg font-extrabold tracking-[-0.02em] sm:text-xl">
+          <div className="portfolio-header-name min-w-0 truncate text-lg font-extrabold sm:text-xl">
             Ankita Patra
           </div>
           <button
@@ -395,10 +405,10 @@ export function Portfolio() {
         <SectionShell className="portfolio-font-hero pt-8 sm:pt-16">
           <section className="relative grid min-h-[42rem] gap-12 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
             <div className="relative z-20 max-w-4xl">
-              <p className="portfolio-hero-kicker text-3xl font-light tracking-tight sm:text-4xl">
+              <p className="portfolio-hero-kicker text-3xl font-light sm:text-4xl">
                 Heyo!
               </p>
-              <h1 className="portfolio-hero-title mt-4 max-w-[55rem] font-display text-5xl leading-[1.02] tracking-tight sm:text-6xl lg:w-[72rem] lg:max-w-none lg:whitespace-nowrap lg:text-[5.05rem]">
+              <h1 className="portfolio-hero-title mt-4 max-w-[55rem] font-display text-5xl leading-[1.02] sm:text-6xl lg:w-[72rem] lg:max-w-none lg:whitespace-nowrap lg:text-[5.05rem]">
                 <span className="bg-gradient-to-r from-orange-400 via-red-900 to-black bg-clip-text text-transparent">
                   I'm
                 </span>{" "}
@@ -452,7 +462,7 @@ export function Portfolio() {
               <div className="relative z-10 rounded-[1.45rem] border border-neutral-200/80 bg-white/70 px-7 py-6 shadow-[0_12px_32px_rgba(20,20,20,0.035)] backdrop-blur-sm sm:px-9">
                 <div className="grid items-center gap-x-3 gap-y-7 md:grid-cols-2 xl:grid-cols-[1.28fr_1fr_1fr_1fr]">
                   <div className="flex items-center gap-4 pr-6 xl:border-r xl:border-neutral-200">
-                    <span className="portfolio-credentials-number font-display text-5xl leading-none sm:text-6xl">
+                    <span className="portfolio-credentials-number text-5xl font-extrabold leading-none sm:text-6xl">
                       5+
                     </span>
                     <span className="portfolio-credentials-title text-lg font-bold leading-tight text-neutral-800">
@@ -491,9 +501,11 @@ export function Portfolio() {
               />
               <div className="relative z-10 h-full rounded-[1.45rem] border border-neutral-200/80 bg-white/70 px-6 py-6 shadow-[0_12px_32px_rgba(20,20,20,0.035)] backdrop-blur-sm">
                 <div className="flex h-full items-center justify-center gap-4">
-                  <div className="portfolio-credentials-logo-text grid h-12 w-12 shrink-0 place-items-center rounded-full border border-neutral-200 bg-white text-[0.62rem] font-black text-blue-700">
-                    IIT
-                  </div>
+                  <img
+                    src={LOGOS.iitg}
+                    alt="IIT Guwahati logo"
+                    className="h-12 w-12 shrink-0 object-contain"
+                  />
                   <div>
                     <div className="portfolio-credentials-school text-lg font-semibold leading-tight">
                       IIT Guwahati
@@ -524,7 +536,7 @@ export function Portfolio() {
         </SectionShell>
 
         <SectionShell className="portfolio-font-announcements mt-24 sm:mt-32">
-          <h2 className="portfolio-section-heading font-display text-3xl tracking-tight sm:text-4xl">
+          <h2 className="portfolio-section-heading font-display text-3xl sm:text-4xl">
             Global announcements for some of my work
           </h2>
           <div className="mt-8 grid gap-7 md:grid-cols-2 lg:grid-cols-3">
@@ -538,7 +550,7 @@ export function Portfolio() {
               >
                 <div className="aspect-[16/9] w-full overflow-hidden rounded-xl border border-neutral-200 bg-neutral-200/70">
                   <img
-                    src={`https://i.ytimg.com/vi/${announcement.videoId}/hqdefault.jpg`}
+                    src={announcement.thumbnail}
                     alt={announcement.title}
                     loading="lazy"
                     className="h-full w-full object-cover transition duration-300 group-hover:scale-[1.025]"
@@ -559,7 +571,7 @@ export function Portfolio() {
           id="impactful-work"
           className="portfolio-font-work mt-28 scroll-mt-28 sm:mt-36"
         >
-          <h2 className="portfolio-section-heading font-display text-5xl leading-none tracking-tight sm:text-6xl">
+          <h2 className="portfolio-section-heading font-display text-5xl leading-none sm:text-6xl">
             Glimpse of my work
           </h2>
           <div className="mt-12 space-y-9">
@@ -570,7 +582,7 @@ export function Portfolio() {
         </SectionShell>
 
         <SectionShell className="portfolio-font-nda mt-28 sm:mt-36">
-          <h2 className="portfolio-section-heading font-display text-3xl tracking-tight sm:text-4xl">
+          <h2 className="portfolio-section-heading font-display text-3xl sm:text-4xl">
             Other noteworthy projects under NDA
           </h2>
           <div className="mt-10 grid gap-8 lg:grid-cols-2">
@@ -583,7 +595,7 @@ export function Portfolio() {
         <section className="portfolio-font-about mt-28 overflow-hidden sm:mt-36">
           <div className="mx-auto w-full max-w-[94rem] px-5 sm:px-8 xl:w-[62vw] xl:min-w-[58rem] lg:relative lg:h-screen lg:min-h-[760px]">
             <div className="max-w-[33rem] lg:absolute lg:left-8 lg:top-[5.5rem]">
-              <h2 className="portfolio-section-heading font-display text-5xl tracking-tight sm:text-6xl">
+              <h2 className="portfolio-section-heading font-display text-5xl sm:text-6xl">
                 About me
               </h2>
               <div className="portfolio-about-copy mt-8 max-w-[31rem] text-lg leading-[1.75] text-neutral-700 sm:text-xl">
