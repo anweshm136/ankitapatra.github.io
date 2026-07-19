@@ -135,9 +135,33 @@
   --sidebar-accent-foreground: oklch(0.984 0.003 247.858);
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.551 0.027 264.364);
+
+  /*
+   * Desktop section font controls.
+   * 1 = current size, 1.05 = 5% larger, 0.95 = 5% smaller.
+   */
+  --portfolio-header-font-scale: 1;
+  --portfolio-hero-font-scale: 1;
+  --portfolio-credentials-font-scale: 1;
+  --portfolio-announcements-font-scale: 1;
+  --portfolio-work-font-scale: 1;
+  --portfolio-nda-font-scale: 1;
+  --portfolio-about-font-scale: 1;
 }
 
 @layer base {
+  @media (min-width: 768px) and (max-width: 1023px) {
+    html {
+      font-size: 14.5px;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    html {
+      font-size: 13.5px;
+    }
+  }
+
   * {
     border-color: var(--color-border);
   }
@@ -145,5 +169,118 @@
   body {
     background-color: var(--color-background);
     color: var(--color-foreground);
+  }
+}
+
+@layer components {
+  @media (min-width: 1024px) {
+    .portfolio-header-name {
+      font-size: calc(1.25rem * var(--portfolio-header-font-scale));
+    }
+
+    .portfolio-header-contact {
+      font-size: calc(0.75rem * var(--portfolio-header-font-scale));
+    }
+
+    .portfolio-font-hero .portfolio-hero-kicker {
+      font-size: calc(2.25rem * var(--portfolio-hero-font-scale));
+    }
+
+    .portfolio-font-hero .portfolio-hero-title {
+      font-size: calc(5.05rem * var(--portfolio-hero-font-scale));
+    }
+
+    .portfolio-font-hero .portfolio-hero-body {
+      font-size: calc(1.125rem * var(--portfolio-hero-font-scale));
+    }
+
+    .portfolio-font-hero .portfolio-section-action {
+      font-size: calc(0.75rem * var(--portfolio-hero-font-scale));
+    }
+
+    .portfolio-font-credentials .portfolio-credentials-number {
+      font-size: calc(3.75rem * var(--portfolio-credentials-font-scale));
+    }
+
+    .portfolio-font-credentials .portfolio-credentials-title,
+    .portfolio-font-credentials .portfolio-credentials-name,
+    .portfolio-font-credentials .portfolio-credentials-domain-label,
+    .portfolio-font-credentials .portfolio-credentials-domain-copy,
+    .portfolio-font-credentials .portfolio-credentials-school {
+      font-size: calc(1.125rem * var(--portfolio-credentials-font-scale));
+    }
+
+    .portfolio-font-credentials .portfolio-credentials-meta {
+      font-size: calc(0.75rem * var(--portfolio-credentials-font-scale));
+    }
+
+    .portfolio-font-credentials .portfolio-credentials-logo-text {
+      font-size: calc(0.62rem * var(--portfolio-credentials-font-scale));
+    }
+
+    .portfolio-font-announcements .portfolio-section-heading {
+      font-size: calc(2.25rem * var(--portfolio-announcements-font-scale));
+    }
+
+    .portfolio-font-announcements .portfolio-announcement-copy {
+      font-size: calc(1rem * var(--portfolio-announcements-font-scale));
+    }
+
+    .portfolio-font-work .portfolio-section-heading {
+      font-size: calc(3.75rem * var(--portfolio-work-font-scale));
+    }
+
+    .portfolio-font-work .portfolio-work-tag,
+    .portfolio-font-work .portfolio-section-action {
+      font-size: calc(0.75rem * var(--portfolio-work-font-scale));
+    }
+
+    .portfolio-font-work .portfolio-work-title {
+      font-size: calc(1.9rem * var(--portfolio-work-font-scale));
+    }
+
+    .portfolio-font-work .portfolio-badge {
+      font-size: calc(0.66rem * var(--portfolio-work-font-scale));
+    }
+
+    .portfolio-font-work .portfolio-stat-key {
+      font-size: calc(1.125rem * var(--portfolio-work-font-scale));
+    }
+
+    .portfolio-font-work .portfolio-stat-value {
+      font-size: calc(1rem * var(--portfolio-work-font-scale));
+    }
+
+    .portfolio-font-nda .portfolio-section-heading {
+      font-size: calc(2.25rem * var(--portfolio-nda-font-scale));
+    }
+
+    .portfolio-font-nda .portfolio-badge {
+      font-size: calc(0.66rem * var(--portfolio-nda-font-scale));
+    }
+
+    .portfolio-font-nda .portfolio-nda-title {
+      font-size: calc(1.5rem * var(--portfolio-nda-font-scale));
+    }
+
+    .portfolio-font-nda .portfolio-stat-key {
+      font-size: calc(1.125rem * var(--portfolio-nda-font-scale));
+    }
+
+    .portfolio-font-nda .portfolio-stat-value {
+      font-size: calc(1rem * var(--portfolio-nda-font-scale));
+    }
+
+    .portfolio-font-about .portfolio-section-heading {
+      font-size: calc(3.75rem * var(--portfolio-about-font-scale));
+    }
+
+    .portfolio-font-about .portfolio-about-copy {
+      font-size: calc(1.25rem * var(--portfolio-about-font-scale));
+    }
+
+    .portfolio-font-about .portfolio-section-action {
+      font-size: calc(0.75rem * var(--portfolio-about-font-scale));
+    }
   }
 }
