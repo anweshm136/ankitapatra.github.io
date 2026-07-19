@@ -199,10 +199,13 @@
     }
 
     .portfolio-font-credentials .portfolio-credentials-number {
-      font-size: calc(3.75rem * var(--portfolio-credentials-font-scale));
+      font-size: calc((3.75rem * var(--portfolio-credentials-font-scale)) - 2px);
     }
 
-    .portfolio-font-credentials .portfolio-credentials-title,
+    .portfolio-font-credentials .portfolio-credentials-title {
+      font-size: calc((1.125rem * var(--portfolio-credentials-font-scale)) - 1px);
+    }
+
     .portfolio-font-credentials .portfolio-credentials-name,
     .portfolio-font-credentials .portfolio-credentials-domain-label,
     .portfolio-font-credentials .portfolio-credentials-domain-copy,

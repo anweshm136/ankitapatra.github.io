@@ -441,7 +441,7 @@ export function Portfolio() {
         </SectionShell>
 
         <SectionShell className="portfolio-font-credentials mt-12 space-y-7 sm:mt-20">
-          <div className="grid gap-7 xl:grid-cols-[minmax(0,1fr)_21rem]">
+          <div className="grid gap-2 xl:grid-cols-[minmax(0,1fr)_15rem]">
             <div className="relative">
               <img
                 src="portfolio/doodle-hand-wave.svg"
@@ -450,7 +450,7 @@ export function Portfolio() {
                 aria-hidden
               />
               <div className="relative z-10 rounded-[1.45rem] border border-neutral-200/80 bg-white/70 px-7 py-6 shadow-[0_12px_32px_rgba(20,20,20,0.035)] backdrop-blur-sm sm:px-9">
-                <div className="grid items-center gap-x-6 gap-y-7 md:grid-cols-2 xl:grid-cols-[1.28fr_1fr_1fr_1fr]">
+                <div className="grid items-center gap-x-3 gap-y-7 md:grid-cols-2 xl:grid-cols-[1.28fr_1fr_1fr_1fr]">
                   <div className="flex items-center gap-4 pr-6 xl:border-r xl:border-neutral-200">
                     <span className="portfolio-credentials-number font-display text-5xl leading-none sm:text-6xl">
                       5+
@@ -472,7 +472,7 @@ export function Portfolio() {
                         <div className="portfolio-credentials-name text-lg font-semibold leading-tight">
                           {company.name}
                         </div>
-                        <div className="portfolio-credentials-meta mt-1 text-xs text-neutral-500">
+                        <div className="portfolio-credentials-meta mt-1 whitespace-nowrap text-xs text-neutral-500">
                           {company.sub}
                         </div>
                       </div>
