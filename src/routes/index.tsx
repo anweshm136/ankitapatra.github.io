@@ -1,7 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useCallback, type ReactNode } from "react";
+import { useCallback, useState, type MouseEvent, type ReactNode } from "react";
 import { toast } from "sonner";
 import { ArrowDown, ArrowUpRight, Copy } from "lucide-react";
+import { useResponsive, type Breakpoint } from "@/hooks/use-responsive";
 
 const EMAIL = "ankita.patra21@gmail.com";
 const RESUME_URL =
@@ -20,7 +21,7 @@ const ANNOUNCEMENTS = [
     href: "https://www.youtube.com/watch?v=2srbflqimJQ",
     thumbnail: "portfolio/announcement-purview.png",
     title: "Microsoft Purview X Microsoft Foundry:",
-    body: " AI-powered regulatory assessment template creation & compliance protection for Microsoft Foundry apps and agents.",
+    body: " AI-powered regulatory template & compliance protection for Microsoft Foundry apps and agents.",
   },
   {
     href: "https://www.youtube.com/watch?v=XmcDFCrOXUg",
@@ -32,13 +33,14 @@ const ANNOUNCEMENTS = [
     href: "https://www.youtube.com/live/tEseNXws7-s?t=12850&si=63UYnj9Bk2b3geFk",
     thumbnail: "portfolio/announcement-designmyx.png",
     title: "Myntra X Figma presents DesignMyx:",
-    body: " Shop with Maya: Conversational AI for intent narrowing & personalised recommendation in fashion e-commerce user journey.",
+    body: " Conversational AI for intent narrowing & personalised recommendation in e-commerce user journey.",
   },
 ];
 
 const WORKS = [
   {
-    background: "portfolio/work-purview-background.png",
+    backgroundOver768: "portfolio/work-purview-background-over768.png",
+    backgroundBelow768: "portfolio/work-purview-background-below768.png",
     tag: "COMPLIANCE RISK MANAGEMENT, ENTERPRISE SAAS",
     tagClass: "text-blue-600",
     title:
@@ -46,8 +48,11 @@ const WORKS = [
     live: "MICROSOFT PURVIEW",
     logo: LOGOS.purview,
     visual: "portfolio/work-purview-template.png",
-    visualClass:
-      "lg:right-6 lg:top-[-3.5rem] lg:h-[200%] lg:w-auto lg:origin-top-right lg:scale-[0.75] lg:object-contain",
+    impactPanelMaxWidth: "730px",
+    visualClassXl:
+      "lg:right-0 lg:bottom-0 lg:w-[1194px] lg:h-auto",
+    visualClassSm:
+      "bottom-[-0.75rem] left-1/2 w-[94%] -translate-x-1/2 object-contain",
     stats: [
       { k: "~150-180% YoY growth", v: "in tenant subscription" },
       { k: "Timeline", v: "Apr - Jun 2025" },
@@ -56,7 +61,8 @@ const WORKS = [
     href: "https://www.figma.com/proto/pfkpRsScKCezRkytPPkSea/Microsoft-Purview---Compliance-Manager?node-id=1-4918&p=f&t=032qu2kdO3gitoPP-1&scaling=contain&content-scaling=fixed&page-id=0%3A1&starting-point-node-id=1%3A4918",
   },
   {
-    background: "portfolio/work-care-flows-background.png",
+    backgroundOver768: "portfolio/work-care-flows-background-over768.png",
+    backgroundBelow768: "portfolio/work-care-flows-background-below768.png",
     tag: "CRM - CUSTOMER CARE, ENTERPRISE SAAS",
     tagClass: "text-violet-600",
     title:
@@ -64,8 +70,11 @@ const WORKS = [
     live: "MYNTRA",
     logo: LOGOS.myntra,
     visual: "portfolio/work-care-flows.png",
-    visualClass:
-      "lg:-right-[9em] lg:bottom-[-6.5em] lg:h-[70%] lg:w-auto lg:origin-bottom-right lg:scale-[1.65] lg:object-contain",
+    impactPanelMaxWidth: "730px",
+    visualClassXl:
+      "lg:right-0 lg:bottom-0 lg:w-[1194px] lg:h-auto",
+    visualClassSm:
+      "bottom-[-1.8rem] left-1/2 w-[96%] -translate-x-1/2 object-contain",
     stats: [
       { k: "~30% reduction", v: "in average handling time" },
       { k: "Timeline", v: "Feb - Jun 2024" },
@@ -74,7 +83,8 @@ const WORKS = [
     href: "https://www.figma.com/proto/IWxoPnCV8V8uR6f4tIF5F5/SA?node-id=4006-26398&t=ESxHyWZvKR8DGDXf-1&scaling=contain&content-scaling=fixed&page-id=4006%3A26397&starting-point-node-id=4006%3A26398&fuid=1148614817063352196",
   },
   {
-    background: "portfolio/work-maya-background.png",
+    backgroundOver768: "portfolio/work-maya-background-over768.png",
+    backgroundBelow768: "portfolio/work-maya-background-below768.png",
     tag: "CONSUMER MOBILE APP, E-COMMERCE",
     tagClass: "text-rose-600",
     title:
@@ -83,12 +93,15 @@ const WORKS = [
     liveLabel: "V2.0 LIVE @",
     logo: LOGOS.myntra,
     visual: "portfolio/work-maya.png",
-    visualClass:
-      "lg:right-[-9em] lg:top-[3.8rem] lg:h-[48%] lg:w-auto lg:origin-top-right lg:scale-[1.6] lg:object-contain",
+    impactPanelMaxWidth: "720px",
+    visualClassXl:
+      "lg:right-0 lg:bottom-0 lg:w-[1194px] lg:h-auto",
+    visualClassSm:
+      "bottom-[0.9rem] left-1/2 w-[92%] -translate-x-1/2 object-contain",
     stats: [
       { k: "~2% contribution", v: "in overall bag building" },
       { k: "Timeline", v: "Jul - Sep 2023" },
-      { k: "Contributions", v: "IA, 0 -> 1 MVP flow, base prompt structure" },
+      { k: "Contributions", v: "IA, 0 -> 1 MVP flow, base prompt structure", vXlLines: ["IA, 0 -> 1 MVP flow,", "base prompt structure"] },
     ],
     href: "https://www.figma.com/proto/6FobWSzEU7bF9nJ3P5Nur4/Maya-OG---2.0?node-id=2001-33079&t=ReJy0iZGVaT2R1xc-1&scaling=contain&content-scaling=fixed&page-id=2001%3A33078&starting-point-node-id=2001%3A33079&fuid=1148614817063352196",
   },
@@ -100,8 +113,8 @@ const NDA_PROJECTS = [
     logo: LOGOS.purview,
     org: "MICROSOFT PURVIEW",
     title:
-      "Continuous compliance evaluation and governance for AI Agents at scale",
-    stats: [{ k: "Ongoing - since Mar 2026", v: "End-to-end UX ownership" }],
+      "Continuous compliance evaluation & governance for AI Agents at scale",
+    stats: [{ k: "Ongoing - since Mar 2026", v: "with end-to-end UX ownership" }],
   },
   {
     status: "WIP @",
@@ -109,18 +122,7 @@ const NDA_PROJECTS = [
     org: "MICROSOFT PURVIEW",
     title:
       "Agentic workflows for regulatory compliance action management",
-    stats: [{ k: "Ongoing - since Dec 2025", v: "End-to-end UX ownership" }],
-  },
-  {
-    status: "CURRENTLY LIVE @",
-    logo: LOGOS.myntra,
-    org: "MYNTRA",
-    title:
-      "Framework for rapid iteration in e-commerce conversational AI search & recommendation",
-    stats: [
-      { k: "~2.5% contribution", v: "in overall bag building" },
-      { k: "May - Aug 2024", v: "UX/UI Owner" },
-    ],
+    stats: [{ k: "Ongoing - since Dec 2026", v: "with end-to-end UX ownership" }],
   },
   {
     status: "CURRENTLY LIVE @",
@@ -130,7 +132,18 @@ const NDA_PROJECTS = [
       "Seller-facing advertisement bidding platform, supporting campaign & ROI management",
     stats: [
       { k: "~60% registered sellers", v: "with active ad campaigns monthly" },
-      { k: "Nov - Jan 2025", v: "UX owner" },
+      { k: "Timeline", v: "Nov - Jan 2025 as UX owner" },
+    ],
+  },
+  {
+    status: "CURRENTLY LIVE @",
+    logo: LOGOS.myntra,
+    org: "MYNTRA",
+    title:
+      "Framework for rapid iteration in e-commerce conversational AI search & recommendation",
+    stats: [
+      { k: "~2.5% contribution", v: "in overall bag building" },
+      { k: "Timeline", v: "May - Aug 2024 as UX owner" },
     ],
   },
 ];
@@ -140,69 +153,19 @@ const COMPANIES = [
     name: "Microsoft",
     sub: "Since Feb 2025",
     logo: LOGOS.microsoft,
+    href: "https://www.microsoft.com/en-us/security/business/microsoft-purview?msockid=0b9e2238286c666914d8345929596710",
   },
   {
     name: "Myntra",
     sub: "Jun 2021 - Feb 2025",
     logo: LOGOS.myntra,
+    href: "https://www.myntra.com/",
   },
   {
     name: "Sprinklr",
     sub: "May - Jul 2020",
     logo: LOGOS.sprinklr,
-  },
-];
-
-const ABOUT_TILES = [
-  {
-    src: "portfolio/about-sunflower-field.png",
-    alt: "Ankita standing in a sunflower field",
-    className:
-      "lg:left-[40rem] lg:top-[14.2rem] lg:h-[25rem] lg:w-[20rem]",
-  },
-  {
-    src: "portfolio/about-3d-desk.png",
-    alt: "A 3D desk model",
-    className:
-      "lg:left-[61rem] lg:top-[17.2rem] lg:h-[12rem] lg:w-[18rem]",
-  },
-  {
-    src: "portfolio/about-character-turnaround.png",
-    alt: "Character design turnaround sheet",
-    className:
-      "lg:left-[80rem] lg:top-[13.5rem] lg:h-[6rem] lg:w-[7.5rem]",
-  },
-  {
-    src: "portfolio/about-pop-art-cat.png",
-    alt: "Colorful illustration",
-    className:
-      "lg:left-[80rem] lg:top-[20rem] lg:h-[9rem] lg:w-[7rem]",
-  },
-  {
-    src: "portfolio/about-purple-painting.png",
-    alt: "Purple digital portrait painting",
-    className:
-      "lg:left-[61rem] lg:bottom-[-3rem] lg:h-[32rem] lg:w-[32rem]",
-  },
-  {
-    src: "portfolio/about-mona-lisa-sketch.png",
-    alt: "Mona Lisa pencil sketch",
-    className: "lg:-left-[23rem] lg:bottom-[-5rem] lg:h-[20rem] lg:w-[30rem]",
-  },
-  {
-    src: "portfolio/about-crochet-pink.png",
-    alt: "Pink crochet work in progress",
-    className: "lg:left-[8rem] lg:bottom-[-4rem] lg:h-[15rem] lg:w-[15rem]",
-  },
-  {
-    src: "portfolio/about-clay-sculpture.png",
-    alt: "Clay figure in progress",
-    className: "lg:left-[24rem] lg:bottom-[-1rem] lg:h-[20rem] lg:w-[15rem]",
-  },
-  {
-    src: "portfolio/about-kalamkari-pattern.png",
-    alt: "Bright ornamental pattern artwork",
-    className: "lg:left-[40rem] lg:bottom-[-1rem] lg:h-[20rem] lg:w-[20rem]",
+    href: "https://www.sprinklr.com/",
   },
 ];
 
@@ -222,7 +185,7 @@ function SectionShell({
   return (
     <section
       id={id}
-      className={`mx-auto w-full max-w-[94rem] px-5 sm:px-8 xl:w-[62vw] xl:min-w-[58rem] ${className}`}
+      className={`mx-auto w-full px-6 md:px-14 xl:max-w-[1197px] xl:px-0 ${className}`}
     >
       {children}
     </section>
@@ -233,17 +196,52 @@ function CompanyBadge({
   logo,
   org,
   status,
+  breakpoint,
+  ndaDesktopExtraLeftPadding = false,
 }: {
   logo: string;
   org: string;
   status: string;
+  breakpoint?: "sm" | "md" | "xl";
+  ndaDesktopExtraLeftPadding?: boolean;
 }) {
+  const isSm = breakpoint === "sm";
   return (
-    <span className="portfolio-badge inline-flex max-w-full items-center gap-2 rounded-full bg-neutral-100/90 px-3.5 py-2 text-[0.66rem] font-semibold uppercase tracking-[0.2em] text-neutral-700 shadow-[inset_0_1px_0_rgba(255,255,255,0.8)]">
-      <span>{status}</span>
-      <img src={logo} alt="" className="h-5 w-5 shrink-0 object-contain" />
-      <span className="truncate">{org}</span>
-    </span>
+    <div className={`portfolio-badge ${isSm ? 'inline-flex flex-col gap-0 rounded-[12px] px-[12px] py-[6px]' : 'inline-flex items-center gap-2 rounded-[20px] px-2 pb-[13px] pr-4 pt-3'} bg-[rgba(37,5,53,0.05)] backdrop-blur-[5px]`}>
+      {isSm ? (
+        <>
+          <span className="text-[12px] tracking-[1.2px] font-semibold uppercase leading-[22px] text-[#1b1f22]">
+            {status}
+          </span>
+          <div className="flex gap-[2px] items-center shrink-0">
+            <div className="relative shrink-0 size-[20px]">
+              <img alt="" className="absolute inset-0 max-w-none object-cover pointer-events-none size-full" src={logo} />
+            </div>
+            <span className="text-[12px] tracking-[1.2px] font-semibold uppercase leading-[22px] text-[#1b1f22]">
+              {org}
+            </span>
+          </div>
+        </>
+      ) : (
+        <>
+          <div className="flex flex-col items-start shrink-0 w-fit">
+            <div className={`flex items-center justify-center w-fit ${ndaDesktopExtraLeftPadding ? 'pl-[6px]' : 'pl-[4px]'}`}>
+              <p className="text-[16px] tracking-[1.6px] font-semibold leading-[22px] uppercase text-[#1b1f22]">
+                {status}
+              </p>
+            </div>
+          </div>
+          <div className="flex gap-[2px] items-center shrink-0 h-[12px]">
+            <div className="relative shrink-0 size-[34px]">
+              <img alt="" className="absolute inset-0 max-w-none object-cover pointer-events-none size-full" src={logo} />
+            </div>
+            <p className="text-[16px] tracking-[1.6px] font-semibold leading-[22px] uppercase text-[#1b1f22] truncate whitespace-nowrap">
+              {org}
+            </p>
+          </div>
+        </>
+      )}
+    </div>
   );
 }
 
@@ -287,77 +285,204 @@ function StatStrip({
   );
 }
 
-function WorkCard({ work }: { work: (typeof WORKS)[number] }) {
+function WorkCard({ work, breakpoint }: { work: (typeof WORKS)[number]; breakpoint: Breakpoint }) {
+  const isSm = breakpoint === "sm";
+  const isMd = breakpoint === "md";
+  const isXl = breakpoint === "xl";
+  const isAtLeastMd = isMd || isXl;
+  const cardBackground = isSm ? work.backgroundBelow768 : work.backgroundOver768;
+
   return (
     <a
       href={work.href}
       target="_blank"
       rel="noreferrer"
-      className="group relative block min-h-[31rem] overflow-hidden rounded-[1.45rem] border border-neutral-200/85 bg-white shadow-[0_10px_28px_rgba(20,20,20,0.04)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_24px_52px_rgba(20,20,20,0.08)]"
+      className={`group relative block overflow-hidden rounded-[20px] border-2 border-[rgba(27,31,34,0.05)] bg-white shadow-[0_4px_50px_rgba(0,0,0,0.01)] transition duration-300 hover:shadow-[0_24px_52px_rgba(20,20,20,0.08)] ${isSm ? 'h-auto' : isMd ? 'min-h-[39rem]' : 'min-h-[28rem]'}`}
     >
       <img
-        src={work.background}
+        src={cardBackground}
         alt=""
         aria-hidden
-        className="absolute inset-0 h-full w-full object-cover"
+        loading="lazy"
+        className="absolute right-0 bottom-0 w-[1194px] h-auto max-w-none object-cover pointer-events-none"
       />
-      <div className="relative z-10 flex min-h-[31rem] flex-col justify-between p-7 sm:p-10 lg:p-12">
-        <div className="relative z-20 max-w-3xl lg:max-w-[70%]">
-          <p
-            className={`portfolio-work-tag text-xs font-semibold uppercase tracking-[0.2em] ${work.tagClass}`}
-          >
-            {work.tag}
-          </p>
-          <h3 className="portfolio-work-title mt-5 max-w-[47rem] text-2xl font-bold leading-[1.22] text-neutral-900 sm:text-3xl lg:text-[1.9rem]">
-            {work.title}
-          </h3>
-          <div className="mt-6">
-            <CompanyBadge
-              logo={work.logo}
-              org={work.live}
-              status={work.liveLabel ?? "CURRENTLY LIVE @"}
-            />
+      <div className={`relative z-10 flex flex-col origin-center transition group-hover:scale-[1.015] ${isSm ? 'px-8 pb-[322px] pt-9' : isMd ? 'h-full p-[56px] gap-[69px]' : 'h-full p-[56px] gap-[69px]'}`}>
+        <div className={`relative z-20 ${isXl ? 'max-w-[760px] flex flex-col gap-[20px]' : isMd ? 'max-w-[45.625rem]' : 'max-w-full'}`}>
+          <div className={`flex flex-col ${isXl ? 'gap-[16px]' : 'gap-0'}`}>
+            <p className={`portfolio-work-tag font-semibold uppercase ${isSm ? 'text-[12px] leading-[22px] tracking-[1px]' : 'text-[16px] leading-[22px] tracking-[1.6px]'} ${work.tagClass}`}>
+              {work.tag}
+            </p>
+            <h3 className={`portfolio-work-title font-bold text-neutral-900 ${isSm ? 'text-[24px] leading-[1.48]' : 'text-[32px] leading-[1.48]'}`}>
+              {work.title}
+            </h3>
+          </div>
+          <div className={`${isSm ? 'mt-4 inline-flex flex-col gap-0 rounded-[12px] bg-[rgba(37,5,53,0.05)] px-[12px] py-[6px]' : 'mt-5 inline-flex items-center w-fit gap-[2px] rounded-[20px] bg-[rgba(37,5,53,0.05)] px-[12px] pb-[4px] pt-[3px]'} backdrop-blur-[5px]`}>
+            <span className={`${isSm ? 'pl-0 text-[12px] tracking-[1.2px]' : 'text-[16px] tracking-[1.6px]'} font-semibold uppercase leading-[22px] text-[#1b1f22]`}>
+              {work.liveLabel ?? "CURRENTLY LIVE @"}
+            </span>
+            {isSm ? (
+              <div className="flex gap-[2px] items-center shrink-0">
+                <div className="relative shrink-0 size-[20px]">
+                  <img
+                    src={work.logo}
+                    alt=""
+                    className="absolute inset-0 max-w-none object-cover pointer-events-none size-full"
+                  />
+                </div>
+                <span className="text-[12px] tracking-[1.2px] font-semibold uppercase leading-[22px] text-[#1b1f22]">
+                  {work.live}
+                </span>
+              </div>
+            ) : (
+              <>
+                <div className="relative shrink-0 size-[34px]">
+                  <img
+                    src={work.logo}
+                    alt=""
+                    className="absolute inset-0 max-w-none object-cover pointer-events-none size-full"
+                  />
+                </div>
+                <span className="text-[16px] tracking-[1.6px] font-semibold uppercase leading-[22px] text-[#1b1f22]">
+                  {work.live}
+                </span>
+              </>
+            )}
           </div>
         </div>
 
-        <div className="relative z-20 mt-9 max-w-3xl lg:max-w-[66%]">
-          <StatStrip stats={work.stats} />
+        <div className={`w-full pl-0 ${isSm ? '' : isMd ? 'pr-[364px]' : 'pr-[348px]'}`}>
+          <div
+            className={`relative z-20 w-full rounded-[20px] border-2 border-[rgba(27,31,34,0.05)] bg-[rgba(254,255,252,0.8)] ${isSm ? 'mt-6 max-w-full py-[24px]' : isMd ? 'py-[24px] min-w-[274px]' : 'py-[24px]'} shadow-[0_0_50px_rgba(190,168,239,0.1)]`}
+            style={isMd ? { maxWidth: work.impactPanelMaxWidth } : undefined}
+          >
+            <div className={`${isSm ? 'grid gap-6 px-[32px]' : isXl ? 'inline-flex flex-wrap gap-y-[16px] gap-x-[0px] items-center' : 'flex flex-wrap items-center gap-y-[24px]'}`}>
+              {work.stats.map((s, index) => (
+                <div
+                  key={`${s.k}-${s.v}`}
+                  className={`${isSm ? '' : isMd ? index === 0 ? 'w-fit shrink-0 px-[32px]' : 'w-fit shrink-0 border-l border-[rgba(27,31,34,0.1)] px-[32px]' : index === 0 ? 'w-fit shrink-0 px-[32px]' : 'w-fit shrink-0 border-l border-[rgba(27,31,34,0.1)] px-[32px]'}`}
+                >
+                  <div className="portfolio-stat-key leading-[1] text-[#1b1f22]">
+                    <span className={`${isSm ? 'text-[16px]' : 'text-[20px]'} font-bold leading-[1.6]`}>
+                      {s.k}
+                    </span>
+                  </div>
+                  <div className="portfolio-stat-value text-[#1b1f22] opacity-90">
+                    {isXl && s.vXlLines ? (
+                      <div className="text-[20px] font-normal leading-[1.6]">
+                        {s.vXlLines.map((line) => (
+                          <span key={line} className="block">{line}</span>
+                        ))}
+                      </div>
+                    ) : (
+                      <span className={`${isSm ? 'text-[16px]' : 'text-[20px]'} font-normal leading-[1.6]`}>
+                        {s.v}
+                      </span>
+                    )}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
 
-        <div className="relative z-0 mt-8 h-56 overflow-hidden rounded-2xl bg-white/35 sm:h-64 lg:pointer-events-none lg:absolute lg:inset-y-0 lg:right-0 lg:mt-0 lg:h-full lg:w-[39%] lg:overflow-visible lg:rounded-none lg:bg-transparent">
-          <img
-            src={work.visual}
-            alt=""
-            loading="lazy"
-            className={`absolute inset-0 h-full w-full object-contain drop-shadow-[0_24px_32px_rgba(26,26,26,0.14)] lg:inset-auto ${work.visualClass}`}
-          />
-        </div>
+
       </div>
     </a>
   );
 }
 
-function NdaProjectCard({ project }: { project: (typeof NDA_PROJECTS)[number] }) {
+function NdaProjectCard({ project, breakpoint }: { project: (typeof NDA_PROJECTS)[number]; breakpoint: Breakpoint }) {
+  const isSm = breakpoint === "sm";
+  const [isExpanded, setIsExpanded] = useState(false);
+
+  const copyEmail = useCallback(async () => {
+    try {
+      await navigator.clipboard.writeText(EMAIL);
+      toast.success("Email copied", { description: EMAIL });
+      if (isSm) {
+        setIsExpanded(false);
+      }
+    } catch {
+      toast.error("Couldn't copy - email: " + EMAIL);
+    }
+  }, [isSm]);
+
+  const handleCardClick = (e: React.MouseEvent) => {
+    if (isSm && !isExpanded) {
+      e.preventDefault();
+      setIsExpanded(true);
+    }
+  };
+
   return (
-    <article className="flex min-h-[17rem] flex-col justify-between rounded-[1.45rem] border border-neutral-200/85 bg-white/72 p-7 shadow-[0_14px_42px_rgba(20,20,20,0.035)] backdrop-blur-sm sm:p-9">
-      <div>
-        <CompanyBadge
-          logo={project.logo}
-          org={project.org}
-          status={project.status}
-        />
-        <h3 className="portfolio-nda-title mt-7 max-w-[32rem] text-xl font-bold leading-[1.38] text-neutral-900 sm:text-2xl">
-          {project.title}
-        </h3>
+    <article 
+      className={`group relative flex flex-col gap-[10px] overflow-clip rounded-[20px] border-2 border-[rgba(27,31,34,0.05)] bg-[#fffffc] ${isSm ? 'pb-[12px] pt-[24px] px-[32px]' : 'pb-[16px] pt-[32px] px-[40px]'}`}
+      onClick={handleCardClick}
+    >
+      <div className="flex flex-col gap-[32px] w-full">
+        <div className="flex flex-col gap-[20px] w-full items-start">
+          <CompanyBadge
+            logo={project.logo}
+            org={project.org}
+            status={project.status}
+            breakpoint={breakpoint}
+            ndaDesktopExtraLeftPadding={!isSm}
+          />
+          <h3 className={`portfolio-nda-title font-bold leading-[1.48] text-[#1b1f22] w-full ${isSm ? 'text-[20px]' : 'text-[24px]'}`}>
+            {project.title}
+          </h3>
+        </div>
+        <div className="w-full">
+          {project.stats.map((stat) => (
+            <div key={stat.k} className="border-t border-[rgba(27,31,34,0.1)] py-[16px] w-full">
+              <p className={`font-bold opacity-90 text-[#1b1f22] leading-[0] ${isSm ? 'text-[16px]' : 'text-[20px]'}`}>
+                <span className="leading-[1.6]">{stat.k} </span>
+                <span className="font-normal leading-[1.6]">{stat.v}</span>
+              </p>
+            </div>
+          ))}
+        </div>
       </div>
-      <div className="mt-8 max-w-[31rem]">
-        <StatStrip stats={project.stats} compact />
+
+      {/* NDA Overlay */}
+      <div 
+        className={`absolute inset-0 z-20 rounded-[20px] backdrop-blur-sm bg-white/70 flex flex-col items-center justify-center gap-5 py-6 px-8 transition-opacity duration-300 ${isSm ? (isExpanded ? 'opacity-100' : 'opacity-0 pointer-events-none') : 'group-hover:opacity-100 opacity-0 pointer-events-none group-hover:pointer-events-auto'}`}
+        onClick={(e) => e.stopPropagation()}
+      >
+        <div className="flex flex-col items-center gap-4 text-center">
+          <div className="flex items-center justify-center gap-2.5">
+            <img
+              src="logos/lock-closed.svg"
+              alt=""
+              aria-hidden
+              className={`w-auto shrink-0 ${isSm ? 'h-[20px]' : 'h-[24px]'}`}
+            />
+            <h4 className={`font-bold leading-[1.05] text-[#1b1f22] ${isSm ? 'text-xl' : 'text-[24px]'}`}>
+              Protected by NDA
+            </h4>
+          </div>
+          <p className={`leading-[1.6] font-normal text-neutral-500 max-w-xs ${isSm ? 'text-[15px]' : 'text-[17px]'}`}>
+            Detailed case study available upon request. Get in touch to learn more.
+          </p>
+        </div>
       </div>
     </article>
   );
 }
 
 export function Portfolio() {
+  const breakpoint = useResponsive();
+  const isSm = breakpoint === "sm";
+  const isMd = breakpoint === "md";
+  const isXl = breakpoint === "xl";
+  const isAtLeastMd = !isSm;
+  const isAtLeastXl = isXl;
+  const footerArtSrc = isXl
+    ? "portfolio/Footer.png"
+    : isMd
+      ? "portfolio/Footer-1.png"
+      : "portfolio/Footer-2.png";
+
   const copyEmail = useCallback(async () => {
     try {
       await navigator.clipboard.writeText(EMAIL);
@@ -372,6 +497,9 @@ export function Portfolio() {
       .getElementById("impactful-work")
       ?.scrollIntoView({ behavior: "smooth", block: "start" });
   }, []);
+  const preventImageOpen = useCallback((event: MouseEvent<HTMLImageElement>) => {
+    event.preventDefault();
+  }, []);
 
   return (
     <div className="min-h-screen overflow-x-hidden bg-[#fcfbf8] text-neutral-900 font-sans antialiased">
@@ -384,106 +512,262 @@ export function Portfolio() {
             "0 16px 55px rgba(20,20,20,0.045), inset 0 -1px 0 rgba(255,255,255,0.58)",
         }}
       >
-        <div className="mx-auto flex w-full items-center justify-between gap-4 px-5 py-4 sm:px-[60px] sm:py-5">
-          <div className="portfolio-header-name min-w-0 truncate text-lg font-extrabold sm:text-xl">
+        <div className="mx-auto flex w-full items-center justify-between gap-4 px-5 py-4 sm:px-6 md:px-[60px] sm:py-5">
+          <div className="portfolio-header-name min-w-0 truncate text-2xl font-extrabold sm:text-2xl md:text-3xl">
             Ankita Patra
           </div>
           <button
             onClick={copyEmail}
-            className="portfolio-header-contact inline-flex min-w-0 shrink-0 items-center gap-2 rounded-md bg-neutral-900 px-3.5 py-2 text-[0.63rem] font-semibold uppercase tracking-[0.18em] text-white shadow-[0_6px_18px_rgba(0,0,0,0.16)] transition hover:bg-neutral-800 sm:px-5 sm:text-xs"
+            className="portfolio-header-contact inline-flex min-w-0 shrink-0 items-center gap-2 rounded-[8px] bg-neutral-900 px-[16px] py-[8px] text-[16px] font-semibold uppercase tracking-[1.6px] text-white cursor-pointer transition-colors duration-200 hover:bg-neutral-800 hover:text-neutral-100"
           >
-            <span className="hidden sm:inline">Contact me :</span>
-            <span className="truncate normal-case tracking-[0.08em]">
-              {EMAIL}
-            </span>
-            <Copy className="h-3.5 w-3.5 shrink-0 sm:hidden" />
+            CONTACT  ME
+            <Copy className="h-[18px] w-[18px] shrink-0" />
           </button>
         </div>
       </header>
 
       <main className="pt-28 sm:pt-36">
         <SectionShell className="portfolio-font-hero pt-8 sm:pt-16">
-          <section className="relative grid min-h-[42rem] gap-12 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
-            <div className="relative z-20 max-w-4xl">
-              <p className="portfolio-hero-kicker text-3xl font-light sm:text-4xl">
-                Heyo!
-              </p>
-              <h1 className="portfolio-hero-title mt-4 max-w-[55rem] font-display text-5xl leading-[1.02] sm:text-6xl lg:w-[72rem] lg:max-w-none lg:whitespace-nowrap lg:text-[5.05rem]">
-                <span className="bg-gradient-to-r from-orange-400 via-red-900 to-black bg-clip-text text-transparent">
-                  I'm
-                </span>{" "}
-                Ankita Patra.
-              </h1>
-              <p className="portfolio-hero-body mt-8 max-w-[32rem] text-base leading-[1.75] text-neutral-700 sm:text-lg">
-                Product builder passionate about connecting user needs,
-                business goals and technical realities, untangling ambiguity into
-                impactful products.
-              </p>
-              <div className="mt-10 flex flex-wrap items-center gap-6">
-                <button
-                  onClick={scrollToWork}
-                  className="portfolio-section-action inline-flex items-center gap-2 rounded-md bg-neutral-900 px-5 py-3 text-xs font-semibold uppercase tracking-[0.18em] text-white transition hover:bg-neutral-800"
-                >
-                  Check my work <ArrowDown className="h-3.5 w-3.5" />
-                </button>
-                <a
-                  href={RESUME_URL}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="portfolio-section-action inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.18em] text-neutral-900 hover:text-neutral-600"
-                >
-                  Check my impact in resume{" "}
-                  <ArrowUpRight className="h-3.5 w-3.5" />
-                </a>
-              </div>
-            </div>
+          <section className="relative min-h-[42rem]">
+            {/* XL Layout: Side-by-side with photo right */}
+            {isXl && (
+              <div className="grid min-h-[42rem] gap-12 xl:gap-0 xl:grid-cols-[minmax(0,1fr)_381px] xl:items-center">
+                <div className="relative z-20 w-full max-w-none">
+                  <p className="portfolio-hero-kicker text-[48px] leading-none font-extralight">
+                    Heyo!
+                  </p>
+                  <h1
+                    className="portfolio-hero-title mt-4 w-full max-w-none bg-clip-text font-display font-extrabold text-[clamp(6rem,8vw,7.4375rem)] leading-[0.98] text-transparent whitespace-nowrap"
+                    style={{
+                      backgroundImage: "url('/noise.png'), url('/hero-title-texture.svg')",
+                      backgroundSize: "160px 160px, cover",
+                      backgroundPosition: "center, center",
+                      backgroundRepeat: "repeat, no-repeat",
+                      backgroundBlendMode: "overlay, normal",
+                      WebkitBackgroundClip: "text",
+                      backgroundClip: "text",
+                      WebkitTextFillColor: "transparent",
+                      paddingRight: "100px",
+                    }}
+                  >
+                    I'm Ankita Patra.
+                  </h1>
+                  <p className="portfolio-hero-body mt-7 w-full text-[clamp(2rem,3vw,2.25rem)] leading-[1.2] text-neutral-900">
+                    Experienced in taking features from 0→1
+                  </p>
+                  <p className="portfolio-hero-body mt-6 xl:pr-[56px] w-full text-[clamp(1.25rem,1.9vw,1.5rem)] leading-[1.6] text-neutral-700">
+                    Product builder passionate about connecting user needs,
+                    business goals and technical realities, untangling ambiguous ideas
+                    into impactful products.
+                  </p>
+                  <div className="mt-10 flex flex-wrap items-center gap-6">
+                    <button
+                      onClick={scrollToWork}
+                      className="portfolio-section-action inline-flex h-[36px] items-center gap-2 rounded-[8px] bg-neutral-900 px-[16px] py-[8px] text-[16px] font-semibold uppercase tracking-[1.6px] leading-[20px] text-white cursor-pointer transition-colors duration-200 hover:bg-neutral-800 hover:text-neutral-100"
+                    >
+                      CHECK  MY  WORK <ArrowDown className="h-[18px] w-[18px]" />
+                    </button>
+                    <a
+                      href={RESUME_URL}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="portfolio-section-action inline-flex h-[36px] items-center gap-2 text-[16px] font-semibold uppercase tracking-[1.6px] leading-[20px] text-neutral-900 hover:text-neutral-600"
+                    >
+                      check  my  impact  In  RESUME{" "}
+                      <ArrowUpRight className="h-[18px] w-[18px]" />
+                    </a>
+                  </div>
+                </div>
 
-            <div className="relative z-0 mx-auto w-full max-w-[38rem] lg:pointer-events-none lg:absolute lg:bottom-[5rem] lg:right-0 lg:w-[20rem] lg:max-w-none lg:origin-bottom-right xl:w-[22rem]">
-              <div className="aspect-[0.64] overflow-hidden rounded-[1.1rem] bg-orange-400 shadow-[0_18px_42px_rgba(19,19,19,0.08)]">
-                <img
-                  src="portfolio/hero-portrait.png"
-                  alt="Ankita Patra smiling in front of an orange wall"
-                  className="h-full w-full object-cover"
-                />
+                <div className="relative z-0 h-[602px] w-[381px] shrink-0 justify-self-end xl:pointer-events-none">
+                  <div className="h-full w-full overflow-hidden rounded-[20px] bg-orange-400 shadow-[0_18px_42px_rgba(19,19,19,0.08)]">
+                    <img
+                      src="portfolio/hero-portrait.png"
+                      alt="Ankita Patra smiling in front of an orange wall"
+                      draggable={false}
+                      onContextMenu={preventImageOpen}
+                      className="h-full w-full select-none pointer-events-none object-cover"
+                    />
+                  </div>
+                </div>
               </div>
-            </div>
+            )}
+
+            {/* MD Layout: Adjusted side-by-side */}
+            {isMd && (
+              <div className="grid min-h-[42rem] gap-12 md:grid-cols-[minmax(0,1fr)_381px] md:items-center">
+                <div className="relative z-20 min-w-0 w-full max-w-none">
+                  <p className="portfolio-hero-kicker text-[48px] leading-none font-extralight">
+                    Heyo!
+                  </p>
+                  <h1
+                    className="portfolio-hero-title mt-4 w-full max-w-none bg-clip-text font-display font-extrabold text-[clamp(4.2rem,9.2vw,7.4375rem)] leading-[0.98] text-transparent"
+                    style={{
+                      backgroundImage: "url('/noise.png'), url('/hero-title-texture.svg')",
+                      backgroundSize: "160px 160px, cover",
+                      backgroundPosition: "center, center",
+                      backgroundRepeat: "repeat, no-repeat",
+                      backgroundBlendMode: "overlay, normal",
+                      WebkitBackgroundClip: "text",
+                      backgroundClip: "text",
+                      WebkitTextFillColor: "transparent",
+                    }}
+                  >
+                    I'm Ankita Patra.
+                  </h1>
+                  <p className="portfolio-hero-body mt-6 w-full text-[clamp(2rem,4vw,2.25rem)] leading-[1.2] text-neutral-900">
+                    Experienced in taking features from 0→1
+                  </p>
+                  <p className="portfolio-hero-body mt-5 w-full text-[clamp(1.25rem,2.2vw,1.5rem)] leading-[1.6] text-neutral-700">
+                    Product builder passionate about connecting user needs,
+                    business goals and technical realities, untangling ambiguous ideas
+                    into impactful products.
+                  </p>
+                  <div className="mt-8 flex flex-wrap items-center gap-4">
+                    <button
+                      onClick={scrollToWork}
+                      className="portfolio-section-action inline-flex h-[36px] items-center gap-2 rounded-[8px] bg-neutral-900 px-[16px] py-[8px] text-[16px] font-semibold uppercase tracking-[1.6px] leading-[20px] text-white cursor-pointer transition-colors duration-200 hover:bg-neutral-800 hover:text-neutral-100"
+                    >
+                      CHECK  MY  WORK <ArrowDown className="h-3 w-3" />
+                    </button>
+                    <a
+                      href={RESUME_URL}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="portfolio-section-action inline-flex h-[36px] items-center gap-2 text-[16px] font-semibold uppercase tracking-[1.6px] leading-[20px] text-neutral-900 hover:text-neutral-600"
+                    >
+                      check  my  impact  In  RESUME <ArrowUpRight className="h-[18px] w-[18px]" />
+                    </a>
+                  </div>
+                </div>
+
+                <div className="relative z-0 h-[602px] w-[381px] shrink-0 justify-self-end">
+                  <div className="h-full w-full overflow-hidden rounded-[20px] bg-orange-400 shadow-[0_18px_42px_rgba(19,19,19,0.08)]">
+                    <img
+                      src="portfolio/hero-portrait.png"
+                      alt="Ankita Patra smiling in front of an orange wall"
+                      draggable={false}
+                      onContextMenu={preventImageOpen}
+                      className="h-full w-full select-none pointer-events-none object-cover"
+                    />
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* SM Layout: Text-only, portrait below */}
+            {isSm && (
+              <div className="space-y-[80px]">
+                <div className="relative z-20 max-w-full">
+                  <p className="portfolio-hero-kicker text-[48px] leading-none font-extralight">
+                    Heyo!
+                  </p>
+                  <h1
+                    className="portfolio-hero-title mt-3 bg-clip-text font-display font-extrabold text-[80px] leading-[1] text-transparent"
+                    style={{
+                      backgroundImage: "url('/noise.png'), url('/hero-title-texture.svg')",
+                      backgroundSize: "160px 160px, cover",
+                      backgroundPosition: "center, center",
+                      backgroundRepeat: "repeat, no-repeat",
+                      backgroundBlendMode: "overlay, normal",
+                      WebkitBackgroundClip: "text",
+                      backgroundClip: "text",
+                      WebkitTextFillColor: "transparent",
+                    }}
+                  >
+                    I'm Ankita Patra.
+                  </h1>
+                  <p className="portfolio-hero-body mt-5 text-[24px] leading-[1.25] text-neutral-900">
+                    Experienced in taking features from 0→1
+                  </p>
+                  <p className="portfolio-hero-body mt-4 text-[20px] leading-[1.6] text-neutral-700">
+                    Product builder passionate about connecting user needs,
+                    business goals and technical realities, untangling ambiguous ideas
+                    into impactful products.
+                  </p>
+                  <div className="mt-6 flex flex-wrap items-start gap-y-4 gap-x-10 px-[3px]">
+                    <button
+                      onClick={scrollToWork}
+                      className="portfolio-section-action inline-flex h-[36px] shrink-0 items-center gap-2 rounded-[8px] bg-neutral-900 pb-[9px] pl-[16px] pr-[14px] pt-[7px] text-[16px] font-semibold uppercase tracking-[1.6px] leading-[20px] whitespace-nowrap text-white cursor-pointer transition-colors duration-200 hover:bg-neutral-800 hover:text-neutral-100"
+                    >
+                      CHECK  MY  WORK <ArrowDown className="h-[18px] w-[18px]" />
+                    </button>
+                    <a
+                      href={RESUME_URL}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="portfolio-section-action inline-flex h-[36px] shrink-0 items-center justify-end gap-2 rounded-[8px] py-[9px] text-[16px] font-semibold uppercase tracking-[1.6px] leading-[20px] text-neutral-900 hover:text-neutral-600"
+                    >
+                      check  my  impact  In  RESUME <ArrowUpRight className="h-[18px] w-[18px]" />
+                    </a>
+                  </div>
+                </div>
+
+                <div className="relative z-0 w-full">
+                  <div className="aspect-[0.64] overflow-hidden rounded-[1.1rem] bg-orange-400 shadow-[0_18px_42px_rgba(19,19,19,0.08)]">
+                    <img
+                      src="portfolio/hero-portrait.png"
+                      alt="Ankita Patra smiling in front of an orange wall"
+                      draggable={false}
+                      onContextMenu={preventImageOpen}
+                      className="h-full w-full select-none pointer-events-none object-cover"
+                    />
+                  </div>
+                </div>
+              </div>
+            )}
           </section>
         </SectionShell>
 
-        <SectionShell className="portfolio-font-credentials mt-12 space-y-7 sm:mt-20">
-          <div className="grid gap-2 xl:grid-cols-[minmax(0,1fr)_15rem]">
-            <div className="relative">
-              <img
-                src="portfolio/doodle-hand-wave.svg"
-                alt=""
-                className="absolute -left-20 -top-[5.6rem] z-0 h-[9.8rem] w-[7.8rem] -rotate-6 select-none"
-                aria-hidden
-              />
-              <div className="relative z-10 rounded-[1.45rem] border border-neutral-200/80 bg-white/70 px-7 py-6 shadow-[0_12px_32px_rgba(20,20,20,0.035)] backdrop-blur-sm sm:px-9">
-                <div className="grid items-center gap-x-3 gap-y-7 md:grid-cols-2 xl:grid-cols-[1.28fr_1fr_1fr_1fr]">
-                  <div className="flex items-center gap-4 pr-6 xl:border-r xl:border-neutral-200">
-                    <span className="portfolio-credentials-number text-5xl font-extrabold leading-none sm:text-6xl">
-                      5+
-                    </span>
-                    <span className="portfolio-credentials-title text-lg font-bold leading-tight text-neutral-800">
-                      years of
-                      <br />
-                      experience
-                    </span>
-                  </div>
+        <SectionShell className="portfolio-font-credentials mt-[120px] sm:mt-[140px] md:mt-[160px] space-y-[35px]">
+          {/* Row 1: Work History + Education */}
+          <div className={`flex gap-[36px] ${isXl ? 'flex-row items-stretch' : 'flex-col'}`}>
+            {/* Work History Card */}
+            <div className="flex-[3] relative">
+  
+              <div className="relative z-10 flex flex-col overflow-clip rounded-[20px] border-2 border-[rgba(27,31,34,0.05)] bg-[#fefffc] shadow-[0px_0px_50px_0px_rgba(0,0,0,0.03)] p-[24px]">
+                {/* Experience Count */}
+                <div className={`flex gap-[16px] items-center border-b border-[rgba(27,31,34,0.1)] pb-[10px] ${isSm ? '' : 'px-[36px]'}`}>
+                  <span className={`portfolio-credentials-number font-display font-extrabold leading-none text-[#1b1f22] ${isSm ? 'text-[36px]' : 'text-[56px]'}`}>
+                    5+
+                  </span>
+                  <span className={`portfolio-credentials-title font-bold leading-[1.33] text-[#1b1f22] ${isSm ? 'text-[16px]' : 'text-[20px]'}`}>
+                    years of experience
+                  </span>
+                </div>
+                {/* Companies */}
+                <div className="flex flex-wrap gap-[10px] pt-[16px]">
                   {COMPANIES.map((company) => (
-                    <div key={company.name} className="flex items-center gap-3">
-                      <img
-                        src={company.logo}
-                        alt={`${company.name} logo`}
-                        className="h-10 w-10 shrink-0 object-contain"
-                      />
-                      <div className="min-w-0">
-                        <div className="portfolio-credentials-name text-lg font-semibold leading-tight">
-                          {company.name}
-                        </div>
-                        <div className="portfolio-credentials-meta mt-1 whitespace-nowrap text-xs text-neutral-500">
-                          {company.sub}
+                    <div key={company.name} className="min-w-[260px] flex-1 flex flex-wrap items-start pl-[24px] pr-[12px]">
+                      <div className="flex gap-[8px] items-center pl-[8px] pr-[16px] py-[8px] rounded-[8px]">
+                        <a
+                          href={company.href}
+                          target="_blank"
+                          rel="noreferrer"
+                          aria-label={`Visit ${company.name} website`}
+                          className="shrink-0"
+                        >
+                          <img
+                            src={company.logo}
+                            alt={`${company.name} logo`}
+                            className={`shrink-0 object-contain ${isSm ? 'h-[40px] w-[40px]' : 'h-[64px] w-[64px]'}`}
+                          />
+                        </a>
+                        <div>
+                          <a
+                            href={company.href}
+                            target="_blank"
+                            rel="noreferrer"
+                            aria-label={`Visit ${company.name} website`}
+                            className="inline-block"
+                          >
+                            <div className={`portfolio-credentials-name font-semibold leading-[1.6] text-[#1b1f22] ${isSm ? 'text-[16px]' : 'text-[20px]'}`}>
+                              {company.name}
+                            </div>
+                          </a>
+                          <div className={`portfolio-credentials-meta font-normal text-[#1b1f22] opacity-60 ${isSm ? 'text-[14px]' : 'text-[16px]'}`}>
+                            {company.sub}
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -492,54 +776,81 @@ export function Portfolio() {
               </div>
             </div>
 
-            <div className="relative">
-              <img
-                src="portfolio/doodle-grad-cap.svg"
-                alt=""
-                className="absolute -right-12 -top-[2.5rem] z-0 h-[5rem] w-[6.4rem] rotate-3 select-none"
-                aria-hidden
-              />
-              <div className="relative z-10 h-full rounded-[1.45rem] border border-neutral-200/80 bg-white/70 px-6 py-6 shadow-[0_12px_32px_rgba(20,20,20,0.035)] backdrop-blur-sm">
-                <div className="flex h-full items-center justify-center gap-4">
-                  <img
-                    src={LOGOS.iitg}
-                    alt="IIT Guwahati logo"
-                    className="h-12 w-12 shrink-0 object-contain"
-                  />
-                  <div>
-                    <div className="portfolio-credentials-school text-lg font-semibold leading-tight">
-                      IIT Guwahati
+            {/* Education Card */}
+            <div className={`relative ${isXl ? 'flex-[1] min-w-[183px] shrink-0' : ''}`}>
+
+              <div className="relative z-10 overflow-clip rounded-[20px] border-2 border-[rgba(27,31,34,0.05)] bg-[#fefffc] shadow-[0px_0px_50px_0px_rgba(0,0,0,0.03)] h-full">
+                {isXl ? (
+                  <div className="flex flex-col items-center gap-[12px] justify-center h-full px-[20px] py-[24px] text-center">
+                    <div>
+                      <div className="portfolio-credentials-school font-semibold text-[20px] leading-[1.6] text-[#1b1f22] whitespace-nowrap">
+                        IIT Guwahati
+                      </div>
+                      <div className="portfolio-credentials-meta font-normal text-[14px] text-[#1b1f22] opacity-60">
+                        B.Des (2017 - 2021)
+                      </div>
                     </div>
-                    <div className="portfolio-credentials-meta mt-1 text-xs text-neutral-500">
-                      B.Des (2017 - 2021)
+                    <a
+                      href="https://www.iitg.ac.in/"
+                      target="_blank"
+                      rel="noreferrer"
+                      aria-label="Visit IIT Guwahati website"
+                      className="shrink-0"
+                    >
+                      <img
+                        src={LOGOS.iitg}
+                        alt="IIT Guwahati logo"
+                        className="h-[64px] w-[64px] shrink-0 object-contain"
+                      />
+                    </a>
+                  </div>
+                ) : (
+                  <div className="flex items-center gap-[12px] px-[56px] py-[20px]">
+                    <a
+                      href="https://www.iitg.ac.in/"
+                      target="_blank"
+                      rel="noreferrer"
+                      aria-label="Visit IIT Guwahati website"
+                      className="shrink-0"
+                    >
+                      <img
+                        src={LOGOS.iitg}
+                        alt="IIT Guwahati logo"
+                        className={`shrink-0 object-contain ${isSm ? 'h-[48px] w-[48px]' : 'h-[64px] w-[64px]'}`}
+                      />
+                    </a>
+                    <div>
+                      <div className={`portfolio-credentials-school font-semibold leading-[1.6] text-[#1b1f22] ${isSm ? 'text-[16px]' : 'text-[20px]'}`}>
+                        IIT Guwahati
+                      </div>
+                      <div className={`portfolio-credentials-meta font-normal text-[#1b1f22] opacity-60 ${isSm ? 'text-[14px]' : 'text-[16px]'}`}>
+                        B.Des (2017 - 2021)
+                      </div>
                     </div>
                   </div>
-                </div>
+                )}
               </div>
             </div>
           </div>
 
-          <div className="rounded-[1.45rem] border border-neutral-200/80 bg-white/72 px-7 py-7 shadow-[0_12px_32px_rgba(20,20,20,0.035)] backdrop-blur-sm sm:px-10">
-            <div className="grid gap-6 sm:grid-cols-[14rem_1fr] sm:items-center">
-              <div className="portfolio-credentials-domain-label text-lg font-semibold leading-snug text-neutral-700 sm:border-r sm:border-neutral-200 sm:pr-7">
-                Worked in-depth
-                <br />
-                across many domains
-              </div>
-              <p className="portfolio-credentials-domain-copy text-lg leading-[1.75] text-neutral-600">
-                Agentic experiences, Enterprise SaaS, AI governance, Compliance
-                & risk management, CRM, Customer care, Marketing campaign
-                management, Ad bidding, Consumer app, e-Commerce.
+          {/* Domain Experience Card */}
+          <div className="rounded-[20px] border-2 border-[rgba(27,31,34,0.05)] bg-[#fefffc] shadow-[0px_0px_50px_0px_rgba(0,0,0,0.03)] px-[36px] py-[28px]">
+            <div className="border-b border-[rgba(27,31,34,0.1)] pb-[12px]">
+              <p className={`portfolio-credentials-domain-label font-bold leading-[1.6] text-[#1b1f22] opacity-90 ${isSm ? 'text-[16px]' : 'text-[20px]'}`}>
+                Worked in-depth across many domains
               </p>
             </div>
+            <p className={`portfolio-credentials-domain-copy font-normal leading-[1.6] text-[#1b1f22] opacity-90 pt-[22px] ${isSm ? 'text-[16px]' : 'text-[20px]'}`}>
+              Agentic experiences,{"   "}Enterprise SaaS,{"   "}AI governance,{"   "}Compliance &amp; risk management,{"   "}CRM,{"   "}Customer care,{"   "}Marketing campaign management,{"   "}Ad bidding,{"   "}Consumer app,{"   "}e-Commerce.
+            </p>
           </div>
         </SectionShell>
 
-        <SectionShell className="portfolio-font-announcements mt-24 sm:mt-32">
-          <h2 className="portfolio-section-heading font-display text-3xl sm:text-4xl">
+        <SectionShell className="portfolio-font-announcements mt-[120px] sm:mt-[140px] md:mt-[160px]">
+          <h2 className="portfolio-section-heading font-display font-extrabold text-[32px] leading-[1.2] text-[#1b1f22]">
             Global announcements for some of my work
           </h2>
-          <div className="mt-8 grid gap-7 md:grid-cols-2 lg:grid-cols-3">
+          <div className={`mt-6 grid gap-x-[36px] gap-y-[44px] sm:mt-8 ${isXl ? 'md:grid-cols-2 lg:grid-cols-3' : isMd ? 'grid-cols-2' : 'grid-cols-1'}`}>
             {ANNOUNCEMENTS.map((announcement) => (
               <a
                 key={announcement.href}
@@ -548,7 +859,7 @@ export function Portfolio() {
                 rel="noreferrer"
                 className="group block"
               >
-                <div className="aspect-[16/9] w-full overflow-hidden rounded-xl border border-neutral-200 bg-neutral-200/70">
+                <div className="aspect-[16/9] w-full overflow-hidden rounded-lg sm:rounded-xl border border-neutral-200 bg-neutral-200/70">
                   <img
                     src={announcement.thumbnail}
                     alt={announcement.title}
@@ -556,7 +867,7 @@ export function Portfolio() {
                     className="h-full w-full object-cover transition duration-300 group-hover:scale-[1.025]"
                   />
                 </div>
-                <p className="portfolio-announcement-copy mt-4 text-base leading-relaxed text-neutral-700">
+                <p className={`portfolio-announcement-copy mt-3 leading-relaxed text-neutral-700 ${isSm ? 'text-lg' : 'text-xl'}`}>
                   <span className="font-bold text-neutral-900">
                     {announcement.title}
                   </span>
@@ -569,36 +880,36 @@ export function Portfolio() {
 
         <SectionShell
           id="impactful-work"
-          className="portfolio-font-work mt-28 scroll-mt-28 sm:mt-36"
+          className="portfolio-font-work mt-[120px] scroll-mt-28 sm:mt-[140px] md:mt-[160px]"
         >
-          <h2 className="portfolio-section-heading font-display text-5xl leading-none sm:text-6xl">
+          <h2 className={`portfolio-section-heading font-display font-extrabold leading-[1.2] text-[#1b1f22] ${isSm ? 'text-[40px]' : 'text-[56px]'}`}>
             Glimpse of my work
           </h2>
-          <div className="mt-12 space-y-9">
+          <div className="mt-8 space-y-6 sm:mt-10 md:space-y-8 md:mt-12">
             {WORKS.map((work) => (
-              <WorkCard key={work.href} work={work} />
+              <WorkCard key={work.href} work={work} breakpoint={breakpoint} />
             ))}
           </div>
         </SectionShell>
 
-        <SectionShell className="portfolio-font-nda mt-28 sm:mt-36">
-          <h2 className="portfolio-section-heading font-display text-3xl sm:text-4xl">
+        <SectionShell className="portfolio-font-nda mt-[120px] sm:mt-[140px] md:mt-[160px]">
+          <h2 className="portfolio-section-heading font-display font-extrabold text-[32px] leading-[1.2] text-[#1b1f22]">
             Other noteworthy projects under NDA
           </h2>
-          <div className="mt-10 grid gap-8 lg:grid-cols-2">
+          <div className={`mt-8 grid gap-6 md:mt-10 ${isXl ? 'lg:grid-cols-2' : isMd ? 'grid-cols-1' : 'grid-cols-1'}`}>
             {NDA_PROJECTS.map((project) => (
-              <NdaProjectCard key={project.title} project={project} />
+              <NdaProjectCard key={project.title} project={project} breakpoint={breakpoint} />
             ))}
           </div>
         </SectionShell>
 
-        <section className="portfolio-font-about mt-28 overflow-hidden sm:mt-36">
-          <div className="mx-auto w-full max-w-[94rem] px-5 sm:px-8 xl:w-[62vw] xl:min-w-[58rem] lg:relative lg:h-screen lg:min-h-[760px]">
-            <div className="max-w-[33rem] lg:absolute lg:left-8 lg:top-[5.5rem]">
-              <h2 className="portfolio-section-heading font-display text-5xl sm:text-6xl">
+        <section className="portfolio-font-about mt-[120px] overflow-visible sm:mt-[140px] md:mt-[160px]">
+          <div className="mx-auto w-full px-6 md:px-14 xl:max-w-[1197px] xl:px-0">
+            <div className={`${isXl ? 'w-1/2' : isMd ? 'max-w-[40rem]' : 'max-w-full'}`}>
+              <h2 className="portfolio-section-heading font-display font-extrabold text-[56px] leading-[1.2] text-[#1b1f22] mb-2 sm:mb-0">
                 About me
               </h2>
-              <div className="portfolio-about-copy mt-8 max-w-[31rem] text-lg leading-[1.75] text-neutral-700 sm:text-xl">
+              <div className={`portfolio-about-copy ${isSm ? 'text-base leading-[1.6]' : isMd ? 'text-lg leading-[1.7] mt-6' : 'text-xl leading-[1.75] sm:text-2xl mt-8'} ${isXl ? 'w-full' : 'max-w-[31rem]'} text-neutral-700`}>
                 <p>
                   I'm a lover of all forms of arts. In my free time, I keep
                   experimenting & exploring different skills. These days, I've
@@ -606,39 +917,46 @@ export function Portfolio() {
                   Aside from that, I love to travel, host people and binge
                   content with a hot bowl of Ramen.
                 </p>
-                <p className="mt-2 font-bold text-neutral-900">
+                <p className={`font-bold text-neutral-900 ${isSm ? 'mt-3' : 'mt-2'}`}>
                   Want to work with me?
                 </p>
               </div>
-              <div className="mt-8 flex flex-wrap items-center gap-6">
+              <div className={`${isSm ? 'mt-4' : isMd ? 'mt-6' : 'mt-8'} flex w-full flex-wrap items-start gap-y-4 gap-x-10`}>
                 <button
                   onClick={copyEmail}
-                  className="portfolio-section-action inline-flex items-center gap-2 rounded-md bg-neutral-900 px-5 py-3 text-xs font-semibold uppercase tracking-[0.18em] text-white transition hover:bg-neutral-800"
+                  className="portfolio-section-action inline-flex h-[36px] shrink-0 items-center gap-2 rounded-[8px] bg-neutral-900 pb-[9px] pl-[16px] pr-[14px] pt-[7px] text-[16px] font-semibold uppercase tracking-[1.6px] leading-[20px] whitespace-nowrap text-white cursor-pointer transition-colors duration-200 hover:bg-neutral-800 hover:text-neutral-100"
                 >
-                  Contact me <Copy className="h-3.5 w-3.5" />
+                  Contact me
+                  <Copy className="h-[18px] w-[18px] shrink-0" />
                 </button>
                 <a
                   href={RESUME_URL}
                   target="_blank"
                   rel="noreferrer"
-                  className="portfolio-section-action inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.18em] text-neutral-900 hover:text-neutral-600"
+                  className="portfolio-section-action inline-flex h-[36px] shrink-0 items-center justify-end gap-2 rounded-[8px] py-[9px] text-[16px] font-semibold uppercase tracking-[1.6px] leading-[20px] whitespace-nowrap text-neutral-900 hover:text-neutral-600"
                 >
                   More about me in resume{" "}
-                  <ArrowUpRight className="h-3.5 w-3.5" />
+                  <ArrowUpRight className="h-[18px] w-[18px]" />
                 </a>
               </div>
             </div>
 
-            <div className="mt-12 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:mt-0 lg:block">
-              {ABOUT_TILES.map((tile) => (
-                <img
-                  key={tile.src}
-                  src={tile.src}
-                  alt={tile.alt}
-                  loading="lazy"
-                  className={`h-44 w-full rounded-[1.05rem] object-cover sm:h-56 lg:absolute lg:shadow-none ${tile.className}`}
-                />
-              ))}
+          </div>
+
+          <div
+            className={`pointer-events-none bg-transparent ${isMd ? 'mt-[-156px]' : isXl ? 'mt-[-180px]' : 'mt-3 sm:mt-4'}`}
+            aria-label="Footer artwork"
+          >
+            <div className={`mx-auto w-full ${isSm ? 'pt-[100px] px-0 pb-2' : isMd ? 'pt-5 px-0 pb-0' : 'p-0'}`}>
+              <img
+                src={footerArtSrc}
+                alt="Decorative collage artwork"
+                loading="lazy"
+                decoding="async"
+                draggable={false}
+                onContextMenu={preventImageOpen}
+                className="block h-auto w-full select-none pointer-events-none object-contain"
+              />
             </div>
           </div>
         </section>

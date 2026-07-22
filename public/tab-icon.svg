@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Sparkle">
+  <g fill="#f6c343">
+    <path d="M32 6l4.5 13.5L50 24l-13.5 4.5L32 42l-4.5-13.5L14 24l13.5-4.5L32 6z" />
+    <path d="M48 38l2.25 6.75L57 47l-6.75 2.25L48 56l-2.25-6.75L39 47l6.75-2.25L48 38z" />
+    <path d="M18 36l1.8 5.4L25.2 43l-5.4 1.8L18 50.2l-1.8-5.4L10.8 43l5.4-1.6L18 36z" />
+  </g>
+</svg>
