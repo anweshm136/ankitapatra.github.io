@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="500" viewBox="0 0 1600 500" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <radialGradient id="heroGradient" cx="8%" cy="22%" r="95%" fx="2%" fy="18%">
+      <stop offset="23.47%" stop-color="#EF8913"/>
+      <stop offset="33.69%" stop-color="#A72206"/>
+      <stop offset="43.43%" stop-color="#1F0702"/>
+      <stop offset="53.37%" stop-color="#010101"/>
+      <stop offset="67.31%" stop-color="#A72206"/>
+      <stop offset="92.31%" stop-color="#000000"/>
+    </radialGradient>
+
+    <filter id="grain">
+      <feTurbulence
+        type="fractalNoise"
+        baseFrequency="1.6"
+        numOctaves="5"
+        seed="24"
+        stitchTiles="stitch"
+      />
+      <feColorMatrix type="saturate" values="0"/>
+      <feComponentTransfer>
+        <feFuncA type="table" tableValues="0 0.78"/>
+      </feComponentTransfer>
+    </filter>
+
+    <linearGradient id="softShade" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.16"/>
+      <stop offset="45%" stop-color="#FFFFFF" stop-opacity="0"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity="0.22"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1600" height="500" fill="url(#heroGradient)"/>
+  <rect width="1600" height="500" fill="url(#softShade)" opacity="0.7"/>
+  <rect width="1600" height="500" filter="url(#grain)" opacity="0.78" style="mix-blend-mode: soft-light"/>
+</svg>

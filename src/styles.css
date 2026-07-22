@@ -1,3 +1,9 @@
+@import "@fontsource/bricolage-grotesque/200.css";
+@import "@fontsource/bricolage-grotesque/800.css";
+@import "@fontsource/assistant/400.css";
+@import "@fontsource/assistant/600.css";
+@import "@fontsource/assistant/700.css";
+
 @import "tailwindcss" source(none);
 @source "../src";
 @import "tw-animate-css";
@@ -19,6 +25,9 @@
  */
 
 @theme inline {
+  --breakpoint-sm: 0px;
+  --breakpoint-md: 820px;
+  --breakpoint-xl: 1280px;
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
@@ -152,13 +161,13 @@
 }
 
 @layer base {
-  @media (min-width: 768px) and (max-width: 1023px) {
+  @media (min-width: 768px) and (max-width: 1279px) {
     html {
       font-size: 14.5px;
     }
   }
 
-  @media (min-width: 1024px) {
+  @media (min-width: 1280px) {
     html {
       font-size: 13.5px;
     }
@@ -175,9 +184,32 @@
 }
 
 @layer components {
-  @media (min-width: 1024px) {
+  .portfolio-font-hero .portfolio-hero-title,
+  .portfolio-font-hero .portfolio-hero-kicker,
+  .portfolio-font-announcements .portfolio-section-heading,
+  .portfolio-font-work .portfolio-section-heading,
+  .portfolio-font-nda .portfolio-section-heading,
+  .portfolio-font-about .portfolio-section-heading {
+    font-family: var(--font-display);
+  }
+
+  .portfolio-font-hero .portfolio-hero-body,
+  .portfolio-font-credentials .portfolio-credentials-name,
+  .portfolio-font-credentials .portfolio-credentials-meta,
+  .portfolio-font-announcements .portfolio-announcement-copy,
+  .portfolio-font-work .portfolio-work-title,
+  .portfolio-font-work .portfolio-work-tag,
+  .portfolio-font-work .portfolio-badge,
+  .portfolio-font-work .portfolio-stat-key,
+  .portfolio-font-work .portfolio-stat-value,
+  .portfolio-font-about .portfolio-about-copy,
+  .portfolio-font-about .portfolio-about-copy p {
+    font-family: var(--font-sans);
+  }
+
+  @media (min-width: 1280px) {
     .portfolio-header-name {
-      font-size: calc(1.25rem * var(--portfolio-header-font-scale));
+      font-size: calc(1.75rem * var(--portfolio-header-font-scale));
     }
 
     .portfolio-header-contact {
@@ -296,5 +328,20 @@
     .portfolio-font-about .portfolio-section-action {
       font-size: calc(0.75rem * var(--portfolio-about-font-scale));
     }
+  }
+}
+
+/* Toaster positioning */
+@media (width < 768px) {
+  [data-sonner-toaster] {
+    top: 96px !important;
+    right: 16px !important;
+  }
+}
+
+@media (width >= 768px) {
+  [data-sonner-toaster] {
+    top: 96px !important;
+    right: 56px !important;
   }
 }
