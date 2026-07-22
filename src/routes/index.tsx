@@ -1,7 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useCallback, useState, type MouseEvent, type ReactNode } from "react";
+import { useCallback, useEffect, useRef, useState, type MouseEvent, type ReactNode } from "react";
 import { toast } from "sonner";
-import { ArrowDown, ArrowUpRight, Copy } from "lucide-react";
+import { ArrowDown, ArrowUpRight, Check, Copy } from "lucide-react";
+import { FaInstagram, FaLinkedinIn } from "react-icons/fa";
 import { useResponsive, type Breakpoint } from "@/hooks/use-responsive";
 
 const EMAIL = "ankita.patra21@gmail.com";
@@ -477,16 +478,32 @@ export function Portfolio() {
   const isXl = breakpoint === "xl";
   const isAtLeastMd = !isSm;
   const isAtLeastXl = isXl;
+  const [isEmailCopied, setIsEmailCopied] = useState(false);
+  const copiedResetTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const footerArtSrc = isXl
     ? "portfolio/Footer.png"
     : isMd
       ? "portfolio/Footer-1.png"
       : "portfolio/Footer-2.png";
 
+  useEffect(() => {
+    return () => {
+      if (copiedResetTimeoutRef.current) {
+        clearTimeout(copiedResetTimeoutRef.current);
+      }
+    };
+  }, []);
+
   const copyEmail = useCallback(async () => {
     try {
       await navigator.clipboard.writeText(EMAIL);
-      toast.success("Email copied", { description: EMAIL });
+      setIsEmailCopied(true);
+      if (copiedResetTimeoutRef.current) {
+        clearTimeout(copiedResetTimeoutRef.current);
+      }
+      copiedResetTimeoutRef.current = setTimeout(() => {
+        setIsEmailCopied(false);
+      }, 1000);
     } catch {
       toast.error("Couldn't copy - email: " + EMAIL);
     }
@@ -520,8 +537,17 @@ export function Portfolio() {
             onClick={copyEmail}
             className="portfolio-header-contact inline-flex min-w-0 shrink-0 items-center gap-2 rounded-[8px] bg-neutral-900 px-[16px] py-[8px] text-[16px] font-semibold uppercase tracking-[1.6px] text-white cursor-pointer transition-colors duration-200 hover:bg-neutral-800 hover:text-neutral-100"
           >
-            CONTACT  ME
-            <Copy className="h-[18px] w-[18px] shrink-0" />
+            {isEmailCopied ? (
+              <>
+                <Check className="h-[18px] w-[18px] shrink-0" />
+                EMAIL COPIED
+              </>
+            ) : (
+              <>
+                CONTACT ME
+                <Copy className="h-[18px] w-[18px] shrink-0" />
+              </>
+            )}
           </button>
         </div>
       </header>
@@ -883,7 +909,7 @@ export function Portfolio() {
           className="portfolio-font-work mt-[120px] scroll-mt-28 sm:mt-[140px] md:mt-[160px]"
         >
           <h2 className={`portfolio-section-heading font-display font-extrabold leading-[1.2] text-[#1b1f22] ${isSm ? 'text-[40px]' : 'text-[56px]'}`}>
-            Glimpse of my work
+            Glimpses of my work
           </h2>
           <div className="mt-8 space-y-6 sm:mt-10 md:space-y-8 md:mt-12">
             {WORKS.map((work) => (
@@ -921,14 +947,43 @@ export function Portfolio() {
                   Want to work with me?
                 </p>
               </div>
-              <div className={`${isSm ? 'mt-4' : isMd ? 'mt-6' : 'mt-8'} flex w-full flex-wrap items-start gap-y-4 gap-x-10`}>
-                <button
-                  onClick={copyEmail}
-                  className="portfolio-section-action inline-flex h-[36px] shrink-0 items-center gap-2 rounded-[8px] bg-neutral-900 pb-[9px] pl-[16px] pr-[14px] pt-[7px] text-[16px] font-semibold uppercase tracking-[1.6px] leading-[20px] whitespace-nowrap text-white cursor-pointer transition-colors duration-200 hover:bg-neutral-800 hover:text-neutral-100"
-                >
-                  Contact me
-                  <Copy className="h-[18px] w-[18px] shrink-0" />
-                </button>
+              <div className={`${isSm ? 'mt-4' : isMd ? 'mt-6' : 'mt-8'} flex w-full flex-col items-start gap-4`}>
+                <div className="flex w-full flex-wrap items-center gap-3">
+                  <button
+                    onClick={copyEmail}
+                    className="portfolio-section-action inline-flex h-[36px] shrink-0 items-center gap-2 rounded-[8px] bg-neutral-900 pb-[9px] pl-[16px] pr-[14px] pt-[7px] text-[16px] font-semibold uppercase tracking-[1.6px] leading-[20px] whitespace-nowrap text-white cursor-pointer transition-colors duration-200 hover:bg-neutral-800 hover:text-neutral-100"
+                  >
+                    {isEmailCopied ? (
+                      <>
+                        <Check className="h-[18px] w-[18px] shrink-0" />
+                        EMAIL COPIED
+                      </>
+                    ) : (
+                      <>
+                        EMAIL ME
+                        <Copy className="h-[18px] w-[18px] shrink-0" />
+                      </>
+                    )}
+                  </button>
+                  <a
+                    href="https://www.linkedin.com/in/artphiltre/"
+                    target="_blank"
+                    rel="noreferrer"
+                    aria-label="LinkedIn"
+                    className="inline-flex h-[36px] w-[36px] shrink-0 items-center justify-center rounded-[8px] bg-[#0A66C2] text-white transition-transform duration-200 hover:scale-[1.04]"
+                  >
+                    <FaLinkedinIn className="h-[26px] w-[26px]" />
+                  </a>
+                  <a
+                    href="https://www.instagram.com/artphiltre/"
+                    target="_blank"
+                    rel="noreferrer"
+                    aria-label="Instagram"
+                    className="inline-flex h-[36px] w-[36px] shrink-0 items-center justify-center rounded-[8px] bg-[#E4405F] text-white transition-transform duration-200 hover:scale-[1.04]"
+                  >
+                    <FaInstagram className="h-[26px] w-[26px]" />
+                  </a>
+                </div>
                 <a
                   href={RESUME_URL}
                   target="_blank"
