@@ -8,6 +8,9 @@ import { useResponsive, type Breakpoint } from "@/hooks/use-responsive";
 const EMAIL = "ankita.patra21@gmail.com";
 const RESUME_URL =
   "https://drive.google.com/drive/folders/1TfJdLpQWqvuq3Dpuh2iSPz7JgO3wfsAe";
+const publicAssetUrl = (path: string) =>
+  `${import.meta.env.BASE_URL}${path.replace(/^\/+/, "")}`;
+const HERO_TITLE_BACKGROUND = `url("${publicAssetUrl("noise.png")}"), url("${publicAssetUrl("hero-title-texture.svg")}")`;
 
 const LOGOS = {
   iitg: "logos/iitg.png",
@@ -565,7 +568,7 @@ export function Portfolio() {
                   <h1
                     className="portfolio-hero-title mt-4 w-full max-w-none bg-clip-text font-display font-extrabold text-[clamp(6rem,8vw,7.4375rem)] leading-[0.98] text-transparent whitespace-nowrap"
                     style={{
-                      backgroundImage: "url('/noise.png'), url('/hero-title-texture.svg')",
+                      backgroundImage: HERO_TITLE_BACKGROUND,
                       backgroundSize: "160px 160px, cover",
                       backgroundPosition: "center, center",
                       backgroundRepeat: "repeat, no-repeat",
@@ -629,7 +632,7 @@ export function Portfolio() {
                   <h1
                     className="portfolio-hero-title mt-4 w-full max-w-none bg-clip-text font-display font-extrabold text-[clamp(4.2rem,9.2vw,7.4375rem)] leading-[0.98] text-transparent"
                     style={{
-                      backgroundImage: "url('/noise.png'), url('/hero-title-texture.svg')",
+                      backgroundImage: HERO_TITLE_BACKGROUND,
                       backgroundSize: "160px 160px, cover",
                       backgroundPosition: "center, center",
                       backgroundRepeat: "repeat, no-repeat",
@@ -691,7 +694,7 @@ export function Portfolio() {
                   <h1
                     className="portfolio-hero-title mt-3 bg-clip-text font-display font-extrabold text-[80px] leading-[1] text-transparent"
                     style={{
-                      backgroundImage: "url('/noise.png'), url('/hero-title-texture.svg')",
+                      backgroundImage: HERO_TITLE_BACKGROUND,
                       backgroundSize: "160px 160px, cover",
                       backgroundPosition: "center, center",
                       backgroundRepeat: "repeat, no-repeat",
